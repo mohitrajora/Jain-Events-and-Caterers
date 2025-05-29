@@ -1,0 +1,9 @@
+# .gitignore
+node_modules/
+*.log
+.env
+.DS_Store
+*.dat
+*.json
+.bash_history
+.gitconfig
