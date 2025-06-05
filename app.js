@@ -11,9 +11,17 @@ document.addEventListener("DOMContentLoaded", function () {
     navLogo.classList.toggle("md:mx-0");
   });
 
-  // Highlight clicked nav button
+  // Close menu on mobile after clicking a link
   navButtons.forEach(btn => {
     btn.addEventListener("click", () => {
+      // Only apply if menu is open on mobile
+      if (window.innerWidth < 768) {
+        navbar.classList.add("hidden");
+        navLogo.classList.add("mx-auto");
+        navLogo.classList.remove("md:mx-0");
+      }
+
+      // Highlight active nav item
       navButtons.forEach(b => {
         b.classList.remove("text-[#F2B1B8]");
         b.classList.add("text-white");
@@ -43,4 +51,55 @@ document.addEventListener("DOMContentLoaded", function () {
       crossFade: true,
     },
   });
+
+  // Stat counter animation
+  const counters = document.querySelectorAll('[data-target]');
+  let animated = false;
+
+  function animateCounters() {
+    const duration = 2000;
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const startTime = performance.now();
+
+      const update = (time) => {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const value = Math.floor(progress * target);
+        counter.innerText = `${value}+`;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = `${target}+`;
+        }
+      };
+
+      requestAnimationFrame(update);
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animated) {
+        animated = true;
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  const statsSection = document.getElementById('stats-section');
+  if (statsSection) observer.observe(statsSection);
 });
+
+// Service expand toggle
+function toggleService(card) {
+  card.classList.toggle('expanded');
+  const extra = card.querySelector('.group > div > div');
+  if (card.classList.contains('expanded')) {
+    extra.classList.remove('hidden');
+  } else {
+    extra.classList.add('hidden');
+  }
+}

@@ -6,98 +6,262 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jain Events & Caterers</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" href="img/logo.jpg" />
+
   <!-- Tailwind CSS -->
   <link href="src/output.css" rel="stylesheet" />
-
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
   <style>
     .font-cursive {
       font-family: 'Great Vibes', cursive;
     }
   </style>
-
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body class="bg-white text-black">
 
   <!-- Navbar -->
-  <nav class="bg-[#F8153E]">
+  <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
-      <!-- Logo -->
       <a href="#" class="flex items-center space-x-3 mx-auto md:mx-0" id="nav-logo">
         <img src="img/logo.jpg" class="h-8 w-auto" alt="Logo" />
         <span class="text-white text-2xl font-semibold">Jain Events & Caterers</span>
       </a>
-
-      <!-- Hamburger -->
       <button id="menu-toggle" type="button"
-        class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none"
-        aria-controls="navbar-default" aria-expanded="false">
+        class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-
-      <!-- Nav Links -->
       <div class="hidden w-full md:block md:w-auto mt-4 md:mt-0" id="navbar-default">
         <ul
           class="font-medium flex flex-col md:flex-row p-4 md:p-0 rounded-lg bg-[#F8153E] md:bg-transparent space-y-2 md:space-y-0 md:space-x-8 text-center">
-          <li><a href="index.html" class="nav_btn text-white block py-2 px-3 md:p-0">Home</a></li>
-          <li><a href="#" class="nav_btn text-white block py-2 px-3 md:p-0">Services</a></li>
-          <li><a href="#contact" class="nav_btn text-white block py-2 px-3 md:p-0">Contact</a></li>
-          <li><a href="#" class="nav_btn text-white block py-2 px-3 md:p-0">About</a></li>
+          <li><a href="index.html" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Home</a></li>
+          <li><a href="#services" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Services</a>
+          </li>
+          <li><a href="#about" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">About</a></li>
+          <li><a href="#reviews" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Reviews</a></li>
+          <li><a href="#contact" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="relative w-full h-screen bg-cover bg-center" style="background-image: url('img/caterer.jpg');">
+  <section class="relative w-full h-screen bg-cover bg-center pt-20"
+    style="background-image: url('img/premium_photo-1723291306365-841e10185b6f.jpeg');">
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
       <h1 class="text-4xl md:text-6xl font-bold font-cursive mb-4">Welcome To Jain Caterers</h1>
       <p class="text-lg md:text-2xl mb-6">Best Catering Services in Jaipur</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="tel:+919999999999"
-          class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-lg transition">Call Us</a>
+          class="bg-[#F8153E] hover:bg-white hover:text-[#F8153E] text-white font-semibold py-2 px-6 rounded-lg transition">Call
+          Us</a>
         <a href="#contact"
-          class="bg-white hover:bg-gray-100 text-yellow-600 font-semibold py-2 px-6 rounded-lg transition">Reach Us</a>
+          class="bg-white hover:bg-[#F8153E] hover:text-white text-[#F8153E] font-semibold py-2 px-6 rounded-lg transition">Reach
+          Us</a>
       </div>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <main class="p-6">
-    <!-- Image Slider -->
-    <div class="p-2 rounded-lg">
-      <div class="swiper w-full h-[75vh] max-w-screen-xl mx-auto rounded-2xl shadow-lg overflow-hidden relative">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="img/caterer.jpg" class="w-full h-full object-cover" alt="Slide 1" /></div>
-          <div class="swiper-slide"><img src="img/istockphoto-637765812-612x612.jpg" class="w-full h-full object-cover" alt="Slide 2" /></div>
-          <div class="swiper-slide"><img src="img/premium_photo-1723291306365-841e10185b6f.jpeg" class="w-full h-full object-cover" alt="Slide 3" /></div>
-        </div>
-        <div class="swiper-button-prev text-white"></div>
-        <div class="swiper-button-next text-white"></div>
-        <div class="swiper-pagination !bottom-4"></div>
-        <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+  <!-- Stats Section -->
+  <section id="stats-section" class="bg-gray-100 py-16 text-center">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">Facts & Figures</h2>
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-gray-700">
+      <div>
+        <p class="text-5xl font-bold text-[#F8153E]" data-target="400">0+</p>
+        <p class="mt-2 text-lg font-semibold">Happy Customers</p>
+      </div>
+      <div>
+        <p class="text-5xl font-bold text-[#F8153E]" data-target="10">0+</p>
+        <p class="mt-2 text-lg font-semibold">Yrs of Experience</p>
+      </div>
+      <div>
+        <p class="text-5xl font-bold text-[#F8153E]" data-target="100">0+</p>
+        <p class="mt-2 text-lg font-semibold">Events Managed</p>
+      </div>
+      <div>
+        <p class="text-5xl font-bold text-[#F8153E]" data-target="50">0+</p>
+        <p class="mt-2 text-lg font-semibold">Qualified Team</p>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Image Slider -->
+  <section class="p-6">
+    <div class="swiper w-full h-[75vh] max-w-screen-xl mx-auto rounded-2xl shadow-lg overflow-hidden relative">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="img/caterer.jpg" class="w-full h-full object-cover" alt="Slide 1" /></div>
+        <div class="swiper-slide"><img src="img/istockphoto-637765812-612x612.jpg" class="w-full h-full object-cover"
+            alt="Slide 2" /></div>
+        <div class="swiper-slide"><img src="img/premium_photo-1723291306365-841e10185b6f.jpeg"
+            class="w-full h-full object-cover" alt="Slide 3" /></div>
+      </div>
+      <div class="swiper-button-prev text-white"></div>
+      <div class="swiper-button-next text-white"></div>
+      <div class="swiper-pagination !bottom-4"></div>
+      <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="bg-white py-20 px-6 md:px-20">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-[#F8153E] mb-6">Our Services</h2>
+      <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto">
+        At <span class="font-semibold text-[#F8153E]">Jain Events & Caterers</span>, we offer a wide range of premium
+        services tailored to meet all your event needs with
+        elegance and professionalism. <br class="hidden md:block" />
+        We’re also happy to arrange customized services according to your specific requirements and event type.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <!-- Service Card -->
+        <div onclick="toggleService(this)"
+          class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <img src="img/caterer.jpg" alt="Wedding Catering" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#F8153E] mb-2">Wedding Catering</h3>
+            <p class="text-gray-700">Premium vegetarian cuisine, beautifully presented.</p>
+            <div class="hidden mt-4 text-sm text-gray-600 group-[.expanded]:block">
+              We provide full wedding services including menu planning, themed decorations, live counters, and guest
+              management.
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Card -->
+        <div onclick="toggleService(this)"
+          class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <img src="img/istockphoto-637765812-612x612.jpg" alt="Corporate Events" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#F8153E] mb-2">Corporate Events</h3>
+            <p class="text-gray-700">Professional catering for business gatherings.</p>
+            <div class="hidden mt-4 text-sm text-gray-600 group-[.expanded]:block">
+              We offer timely catering, setup, and cleanup services for all kinds of corporate functions, from boardroom
+              meetings to office parties.
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Card -->
+        <div onclick="toggleService(this)"
+          class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <img src="img/premium_photo-1723291306365-841e10185b6f.jpeg" alt="Birthday Parties"
+            class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#F8153E] mb-2">Birthday & Private Parties</h3>
+            <p class="text-gray-700">Delightful setups for personal celebrations.</p>
+            <div class="hidden mt-4 text-sm text-gray-600 group-[.expanded]:block">
+              Customized menus, decoration, and entertainment to make birthdays and family parties unforgettable.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- About Section -->
+  <section id="about" class="bg-white py-16 px-4 md:px-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center gap-12">
+      <div class="w-full md:w-1/2 order-2 md:order-1">
+        <img src="img/istockphoto-637765812-612x612.jpg" alt="About Jain Events"
+          class="rounded-2xl shadow-xl w-full max-h-[500px] object-cover">
+      </div>
+      <div class="w-full md:w-1/2 order-1 md:order-2">
+        <h2 class="text-4xl font-bold text-[#F8153E] mb-6">About Jain Events & Caterers</h2>
+        <p class="text-gray-700 text-lg leading-relaxed">
+          At <span class="font-semibold text-[#F8153E]">Jain Events & Caterers</span>, we turn your special moments into
+          unforgettable experiences...
+        </p>
+        <p class="text-gray-700 text-lg leading-relaxed mt-4">
+          From weddings, corporate functions, birthday celebrations to private parties — we handle everything...
+        </p>
+        <div class="mt-6">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-3">Why Choose Us?</h3>
+          <ul class="list-disc list-inside text-gray-700 text-lg space-y-1">
+            <li>Delicious vegetarian cuisine</li>
+            <li>Elegant event setups</li>
+            <li>Timely execution</li>
+            <li>Customer-first service</li>
+          </ul>
+        </div>
+        <p class="text-gray-700 text-lg leading-relaxed mt-6">
+          Let us make your next event <span class="font-semibold text-[#F8153E]">flavorful, beautiful, and
+            unforgettable</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Reviews Section -->
+  <section id="reviews" class="bg-white py-16 px-4 md:px-20 text-center">
+    <h2 class="text-4xl font-bold text-[#F8153E] mb-8">What Our Clients Say</h2>
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-11bcfca5-bcfa-4f04-8a96-077952e16f40" data-elfsight-app-lazy></div>
+  </section>
+
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-gray-100 py-20 px-6 md:px-20">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Text Column -->
+      <div class="text-center md:text-left">
+        <h2 class="text-4xl font-bold text-[#F8153E] mb-4">Contact Us</h2>
+        <p class="text-gray-600 text-lg mb-8 max-w-md mx-auto md:mx-0">
+          We're here to assist you in making your events unforgettable. Reach out through any of the ways below!
+        </p>
+        <div class="space-y-4 text-lg text-gray-800 font-medium mx-auto md:mx-0">
+          <p>📞 <a href="tel:+919876543210" class="text-[#F8153E] hover:underline">+91 98765 43210</a></p>
+          <p>📧 <a href="mailto:contact@jainevents.com"
+              class="text-[#F8153E] hover:underline">contact@jainevents.com</a></p>
+          <p>
+            <i class="fab fa-instagram text-[#F8153E] mr-2"></i>
+            <a href="https://instagram.com/jainevents_and_caterers" target="_blank"
+              class="text-[#F8153E] hover:underline">
+              @jainevents_and_caterers
+            </a>
+          </p>
+
+          <p>📍 Flat No.102, Galli No.6, near Apple Hut, Khushi Vihar, Jaipur, Rajasthan 302020</p>
+        </div>
+      </div>
+
+      <!-- Map Column -->
+      <div class="rounded-xl overflow-hidden shadow-lg">
+        <iframe
+          src="https://www.google.com/maps?q=Flat%20No.102,%20Galli%20No.6,%20Plot%20No.38,%20near%20Apple%20Hut,%20Khushi%20Vihar,%20Patrakar%20Colony,%20Dholai,%20Jaipur,%20Rajasthan%20302020&output=embed"
+          width="100%" height="350" allowfullscreen="" loading="lazy" class="w-full h-[350px] border-0">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919876543210" target="_blank"
+    class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-7 h-7">
+    <span class="hidden sm:inline font-semibold text-base">WhatsApp Us</span>
+  </a>
 
   <!-- Footer -->
   <footer class="text-center p-4 text-sm text-white bg-[#F8153E]">
-    © 2025 Jain Events & Caterers
+    © 2025 Jain Events & Caterers. All rights reserved.
   </footer>
 
-  <!-- Swiper JS -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <!-- Your Custom JS -->
   <script defer src="app.js"></script>
-
 </body>
 
 </html>
