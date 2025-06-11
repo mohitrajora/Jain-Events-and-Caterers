@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Close menu on mobile after clicking a link
   navButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      // Only apply if menu is open on mobile
       if (window.innerWidth < 768) {
         navbar.classList.add("hidden");
         navLogo.classList.add("mx-auto");
@@ -87,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.disconnect();
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.1 }); // Lower threshold for earlier trigger
 
   const statsSection = document.getElementById('stats-section');
   if (statsSection) observer.observe(statsSection);
