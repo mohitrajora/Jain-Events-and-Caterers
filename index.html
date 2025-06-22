@@ -56,28 +56,30 @@
 <body class="bg-white text-black">
 
   <!-- Navbar -->
-  <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md">
+  <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md transition-all duration-500 ease-in-out">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto relative p-4">
-      <a href="#" class="flex items-center space-x-3 mx-auto md:mx-0" id="nav-logo">
+      <a href="index.html" class="flex items-center space-x-3 mx-auto md:mx-0 transition duration-300 hover:scale-105">
         <img src="img/logo.jpg" class="h-10 w-10 rounded-full" alt="Logo" />
         <span class="text-white text-2xl font-semibold">Jain Events and Caterers</span>
       </a>
       <button id="menu-toggle" type="button"
-        class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none">
+        class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none transition duration-300">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
       <div class="hidden w-full md:block md:w-auto mt-4 md:mt-0" id="navbar-default">
         <ul
-          class="font-medium flex flex-col md:flex-row p-4 md:p-0 rounded-lg bg-[#F8153E] md:bg-transparent space-y-2 md:space-y-0 md:space-x-8 text-center">
-          <li><a href="index.html" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Home</a></li>
-          <li><a href="services.html"
-              class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Services</a>
+          class="font-medium flex flex-col md:flex-row p-4 md:p-0 rounded-lg bg-[#F8153E] md:bg-transparent space-y-2 md:space-y-0 md:space-x-8 text-center transition-all">
+          <li><a href="index.html" class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">Home</a>
           </li>
-          <li><a href="#about" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">About</a></li>
+          <li><a href="services.html"
+              class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">Services</a></li>
+          <li><a href="#about" class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">About</a>
+          </li>
           <li><a href="#reviews" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Reviews</a></li>
-          <li><a href="#contact" class="nav_btn text-white block py-2 px-3 md:p-0 hover:text-[#F2B1B8]">Contact</a></li>
+          <li><a href="contact.html"
+              class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -85,7 +87,7 @@
 
   <!-- Hero Section -->
   <section class="relative w-full h-screen bg-cover bg-center pt-20"
-    style="background-image: url('img/premium_photo-1723291306365-841e10185b6f.jpeg');">
+    style="background-image: url('img/Counter.jpg');">
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
       <h1 class="text-4xl md:text-6xl font-bold font-cursive mb-4">Welcome To Jain Events and Caterers</h1>
@@ -94,7 +96,7 @@
         <a href="tel:+917230888688"
           class="bg-[#F8153E] hover:bg-white hover:text-[#F8153E] text-white font-semibold py-2 px-6 rounded-lg transition">Call
           Us</a>
-        <a href="#contact"
+        <a href="contact.html"
           class="bg-white hover:bg-[#F8153E] hover:text-white text-[#F8153E] font-semibold py-2 px-6 rounded-lg transition">Reach
           Us</a>
       </div>
