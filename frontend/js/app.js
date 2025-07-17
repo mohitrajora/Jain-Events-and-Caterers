@@ -92,13 +92,3 @@ document.addEventListener("DOMContentLoaded", function () {
   if (statsSection) observer.observe(statsSection);
 });
 
-// Service expand toggle
-function toggleService(card) {
-  card.classList.toggle('expanded');
-  const extra = card.querySelector('.group > div > div');
-  if (card.classList.contains('expanded')) {
-    extra.classList.remove('hidden');
-  } else {
-    extra.classList.add('hidden');
-  }
-}
