@@ -2,38 +2,35 @@
 <html lang="en">
 
 <head>
-    <!-- Charset & Viewport -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Title -->
-    <title>Birthday Party Catering in Jaipur | Jain Events and Caterers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Party Catering in Jaipur | Jain Events and Caterers</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Celebrate birthdays with Jain Events and Caterers in Jaipur. We offer 100% vegetarian catering, theme-based food setups, and expert service for all age groups." />
+        content="Celebrate anniversaries with Jain Events and Caterers in Jaipur. Enjoy 100% vegetarian & Jain food, romantic setups, and expert catering for your special milestones." />
     <meta name="keywords"
-        content="birthday catering Jaipur, kids birthday catering, vegetarian catering Jaipur, Jain Events birthday party, party food Jaipur, birthday decorators and caterers" />
+        content="anniversary catering Jaipur, vegetarian catering Jaipur, Jain anniversary food, romantic anniversary setup, party catering Jaipur, Jain Events Jaipur" />
     <meta name="author" content="Mohit Rajora" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Birthday Party Catering in Jaipur | Jain Events and Caterers" />
+    <meta property="og:title" content="Anniversary Party Catering in Jaipur | Jain Events and Caterers" />
     <meta property="og:description"
-        content="Celebrate birthdays with Jain Events and Caterers in Jaipur. We offer 100% vegetarian catering, theme-based food setups, and expert service for all age groups." />
-    <meta property="og:image" content="https://jain-events-and-caterers.netlify.app/img/Older-Kid-Birthday-Party.jpg" />
-    <meta property="og:url" content="https://jain-events-and-caterers.netlify.app/birthday.html" />
+        content="Celebrate anniversaries with Jain Events and Caterers in Jaipur. Enjoy 100% vegetarian & Jain food, romantic setups, and expert catering for your special milestones." />
+    <meta property="og:image" content="https://jain-events-and-caterers.netlify.app/img/anniversary_banner.jpg" />
+    <meta property="og:url" content="https://jain-events-and-caterers.netlify.app/anniversary.html" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Birthday Party Catering in Jaipur | Jain Events and Caterers" />
+    <meta name="twitter:title" content="Anniversary Party Catering in Jaipur | Jain Events and Caterers" />
     <meta name="twitter:description"
-        content="Celebrate birthdays with Jain Events and Caterers in Jaipur. We offer 100% vegetarian catering, theme-based food setups, and expert service for all age groups." />
-    <meta name="twitter:image"
-        content="https://jain-events-and-caterers.netlify.app/img/Older-Kid-Birthday-Party.jpg" />
+        content="Celebrate anniversaries with Jain Events and Caterers in Jaipur. Enjoy 100% vegetarian & Jain food, romantic setups, and expert catering for your special milestones." />
+    <meta name="twitter:image" content="https://jain-events-and-caterers.netlify.app/img/anniversary_banner.jpg" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://jain-events-and-caterers.netlify.app/birthday.html" />
+    <link rel="canonical" href="https://jain-events-and-caterers.netlify.app/anniversary.html" />
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
@@ -56,6 +53,18 @@
 
         .animate-fade-in-left {
             animation: fadeInLeft 1s ease-out forwards;
+        }
+
+        /* Default image for mobile */
+        #hero-section {
+            background-image: url('./img/AnnBan.png');
+        }
+
+        /* Change image on tablets and desktops */
+        @media (min-width: 461px) {
+            #hero-section {
+                background-image: url('./img/anniversary_banner.jpg');
+            }
         }
     </style>
 </head>
@@ -100,20 +109,20 @@
                             class="hidden md:absolute bg-white rounded-lg text-[#F8153E] text-sm border border-[#F8153E] mt-2 md:w-52 w-[85%] mx-auto md:mx-0 shadow-md z-50">
                             <li>
                                 <a href="./anniversary.html"
-                                class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Anniversary Celebrations</a>
+                                    class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Anniversary Celebrations</a>
                             </li>
                             <li>
                                 <a href="./birthday.html" class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Birthday
                                     & Kitty Party</a>
-                                </li>
-                                <li>
-                                    <a href="./corporate.html"
+                            </li>
+                            <li>
+                                <a href="./corporate.html"
                                     class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Corporate Catering</a>
-                                </li>
-                                <li>
-                                    <a href="./destination.html"
-                                        class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Wedding Services</a>
-                                </li>
+                            </li>
+                            <li>
+                                <a href="./destination.html"
+                                    class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Wedding Services</a>
+                            </li>
                         </ul>
                     </li>
                     <li><a href="./about.html"
@@ -132,15 +141,13 @@
     <div class="h-20 md:h-24"></div>
 
     <!-- Banner Section -->
-    <section class="relative w-full bg-cover bg-center h-48 md:h-60 mt-[-25px] pt-20 md:pt-24"
-        style="background-image: url('./img/Birhday_Banner.jpeg');">
-        <!-- Overlay -->
+    <section id="hero-section" class="relative w-full bg-cover bg-center h-48 md:h-60 mt-[-25px] pt-20 md:pt-24">
         <div class="absolute inset-0 bg-black/50"></div>
 
         <!-- Text -->
         <div class="absolute inset-0 flex items-end justify-center md:justify-start px-6 md:px-12 pb-6 z-10">
             <h1 class="text-white text-2xl md:text-4xl font-extrabold opacity-0 animate-fade-in-left">
-                Birthday Party
+                Anniversary Party
             </h1>
         </div>
     </section>
@@ -150,78 +157,85 @@
             <!-- Title -->
             <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-extrabold text-[#F8153E] mb-4">
-                    Birthday Party Caterers
+                    Anniversary Party Caterers
                 </h2>
                 <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                    At <span class="text-[#F8153E] font-semibold">Jain Events and Caterers</span>, we bring joy,
-                    flavour, and perfection to every celebration – from
-                    themed kids’ parties to elegant adult gatherings.
+                    Celebrate love, milestones, and memories with <span class="text-[#F8153E] font-semibold">Jain Events
+                        and Caterers</span> – your trusted anniversary party caterers in Jaipur, offering a perfect
+                    blend of taste and elegance.
                 </p>
                 <div class="md:float-right md:ml-8 mb-6 max-w-sm w-full">
-                    <img src="./img/Older-Kid-Birthday-Party.jpg" alt="Birthday Catering"
+                    <img src="./img/Anniversary.jpg" alt="Anniversary Catering"
                         class="rounded-2xl shadow-xl w-full h-auto object-cover align-middle block">
                 </div>
-
             </div>
 
             <!-- Paragraphs -->
             <div class="space-y-10 text-[17px] md:text-lg text-gray-700">
                 <p>
-                    As one of Jaipur’s leading birthday party caterers, we create unforgettable culinary experiences for
-                    all age groups. Our team handles everything—from delicious food to elegant presentation—making your
-                    special day completely stress-free and full of joyful memories.
+                    Whether it's your 1st, 25th, or golden 50th anniversary, we make your celebration extraordinary with
+                    delectable food, romantic presentations, and impeccable service. At Jain Events and Caterers, every
+                    anniversary is a story told through taste.
                 </p>
 
                 <div>
-                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">🎉 Expert Catering for All Age Groups</h3>
+                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">💖 Catering for All Types of Anniversary
+                        Celebrations</h3>
                     <p>
-                        Whether it’s your child’s 1st birthday or your grandparent’s 80th, our menus are fully tailored
-                        to the occasion. We offer pure vegetarian food catering, customized to your dietary needs,
-                        traditions, and party themes. Our chefs use only the freshest ingredients for dishes that look
-                        delightful and taste even better.
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">🥗 Wide Range of Vegetarian Delicacies</h3>
-                    <p>
-                        We take pride in offering a wholesome, 100% vegetarian menu. From traditional Rajasthani and
-                        North Indian cuisine to Chinese, Italian, and fusion dishes — we’ll build a menu that fits your
-                        guests and your event style perfectly.
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">🎨 Theme-Based Catering for Kids & Adults</h3>
-                    <p>
-                        Food is part of the experience. We design themed menus that align with your party’s vibe, such
-                        as:
+                        From intimate dinners to grand receptions, we cater to every kind of anniversary event,
+                        including:
                     </p>
                     <ul class="list-disc pl-6 mt-2 space-y-1">
-                        <li>Cartoon-themed food for kids (e.g., Mickey Mouse-shaped sandwiches)</li>
-                        <li>Elegant canapés & live counters for adults</li>
-                        <li>Custom mocktail bars</li>
-                        <li>Colour-coordinated dessert tables</li>
-                        <li>Theme-based birthday cakes & cupcakes</li>
+                        <li>Private anniversary dinners</li>
+                        <li>Family gatherings & receptions</li>
+                        <li>Surprise anniversary parties</li>
+                        <li>Outdoor lawn celebrations</li>
+                        <li>Home or banquet hall celebrations</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">🌿 Elegant Vegetarian & Jain Menu Options</h3>
+                    <p>
+                        We offer an extensive range of 100% vegetarian and Jain (no onion, no garlic) dishes:
+                    </p>
+                    <ul class="list-disc pl-6 mt-2 space-y-1">
+                        <li>North Indian, South Indian, and Rajasthani cuisines</li>
+                        <li>Fusion snacks and live counters</li>
+                        <li>Mocktail bars and welcome drink stations</li>
+                        <li>Dessert tables with customized anniversary cakes</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-[#F8153E] mb-2">🎀 Romantic Presentation & Theme-Based Setup</h3>
+                    <p>
+                        We pay attention to every detail to make your celebration magical:
+                    </p>
+                    <ul class="list-disc pl-6 mt-2 space-y-1">
+                        <li>Custom food counters matching your anniversary theme</li>
+                        <li>Heart-shaped cakes & themed desserts</li>
+                        <li>Live chaat and fusion food stations</li>
+                        <li>Elegant table decor and personalized menu planning</li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-2xl font-bold text-[#F8153E] mb-2">✅ Why Choose Us?</h3>
                     <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2 list-disc pl-6 mt-2">
-                        <li>100% Pure Veg Catering</li>
-                        <li>Custom Menus to Match Your Theme</li>
-                        <li>Experienced Chefs & Hospitality Team</li>
-                        <li>Timely Setup & Service</li>
-                        <li>Strict Hygiene & Food Safety</li>
-                        <li>Live Counters & Interactive Stations</li>
+                        <li>Complete Vegetarian & Jain Food Options</li>
+                        <li>Personalized Menus for Any Guest Size</li>
+                        <li>Experienced & Trained Hospitality Staff</li>
+                        <li>Theme-Based Decoration for Food Counters</li>
+                        <li>Prompt Service & Hygienic Preparation</li>
+                        <li>Affordable Catering Packages</li>
                     </ul>
                 </div>
 
                 <p>
-                    <span class="text-[#F8153E] font-semibold">Jain Events and Caterers</span> is proud to be Jaipur’s
-                    trusted name for birthday catering. Every bite we
-                    serve is a celebration — crafted with passion, precision, and joy.
+                    <span class="text-[#F8153E] font-semibold">Jain Events and Caterers</span> brings unmatched taste
+                    and elegance to anniversary parties across Jaipur – from C-Scheme to Malviya Nagar. Celebrate your
+                    journey with us — where every bite tells your story.
                 </p>
             </div>
 
@@ -229,7 +243,7 @@
             <div class="text-center mt-14">
                 <a href="contact.html"
                     class="inline-block bg-[#F8153E] text-white text-lg font-semibold px-10 py-3 rounded-full hover:bg-[#d21334] transition duration-300 shadow">
-                    Book Your Birthday Catering Now
+                    Book Your Anniversary Catering Now
                 </a>
             </div>
         </div>

@@ -2,42 +2,74 @@
 <html lang="en">
 
 <head>
+  <!-- Charset & Viewport -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact - Jain Events and Caterers</title>
-  <link href="src/css/output.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Title -->
+  <title>Contact Us - Jain Events and Caterers | Jaipur's Best Catering Services</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Reach out to Jain Events and Caterers in Jaipur. Contact us via phone, email, or the online form for wedding, birthday, and corporate catering inquiries." />
+  <meta name="keywords"
+    content="contact Jain Events, Jaipur caterers contact, catering inquiry, wedding caterers Jaipur, Jain Events phone number, party caterers Jaipur" />
+  <meta name="author" content="Mohit Rajora" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Contact Jain Events and Caterers | Get in Touch for Your Event" />
+  <meta property="og:description"
+    content="We're here to help you plan your perfect event! Contact Jain Events and Caterers in Jaipur for expert vegetarian catering and event services." />
+  <meta property="og:image" content="https://jain-events-and-caterers.netlify.app/img/logo.jpg" />
+  <meta property="og:url" content="https://jain-events-and-caterers.netlify.app/contact.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact Jain Events and Caterers | Jaipur's Top Event Caterers" />
+  <meta name="twitter:description"
+    content="Get in touch with Jain Events and Caterers. Call, email, or submit a form for catering services for weddings, birthdays, and more in Jaipur." />
+  <meta name="twitter:image" content="https://jain-events-and-caterers.netlify.app/img/logo.jpg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://jain-events-and-caterers.netlify.app/contact.html" />
+
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
+
+  <link href="src/css/output.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    @keyframes fadeInLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-40px);
-      }
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
 
-      100% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-    .animate-fade-in-left {
-      animation: fadeInLeft 1s ease-out forwards;
-    }
-  </style>
-
+        .animate-fade-in-left {
+            animation: fadeInLeft 1s ease-out forwards;
+        }
+    </style>
 </head>
 
 <body class="bg-white text-black">
   <!-- Navbar -->
   <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md transition-all duration-500 ease-in-out">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto relative p-4">
-      <a href="./index.html"
-        class="flex items-center space-x-3 mx-auto md:mx-0 transition duration-300 hover:scale-105">
-        <img src="./img/logo.jpg" class="h-10 w-10 rounded-full" alt="Logo" />
-        <span class="text-white text-2xl font-semibold">Jain Events and Caterers</span>
+      <a href="index.html" class="flex items-center gap-2 flex-grow min-w-0 max-w-[75%]">
+        <img src="./img/logo.jpg" alt="Logo" class="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded-full shrink-0" />
+        <span class="text-base sm:text-xl font-semibold text-white whitespace-nowrap overflow-hidden text-ellipsis">
+          Jain Events and Caterers
+        </span>
       </a>
+
       <button id="menu-toggle" type="button"
         class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none transition duration-300">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +137,7 @@
   </section>
 
   <!-- Contact Page Section -->
-  <section class="bg-gray-100 py-20 px-6 md:px-20">
+  <section class="bg-gray-100 py-12 px-6 md:px-20">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
 
       <!-- Left Content -->
@@ -248,6 +280,13 @@
     </div>
   </section>
 
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/917230888688" target="_blank"
+    class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-7 h-7">
+    <span class="hidden sm:inline font-semibold text-base">WhatsApp Us</span>
+  </a>
+
   <!-- Google Map -->
   <section class="px-6 md:px-20 pb-20">
     <div class="max-w-7xl mx-auto rounded-xl overflow-hidden shadow-lg">
@@ -271,11 +310,11 @@
     });
   </script>
   <script>
-        function toggleMobileDropdown() {
-            const dropdown = document.getElementById("mobileServicesDropdown");
-            dropdown.classList.toggle("hidden");
-        }
-    </script>
+    function toggleMobileDropdown() {
+      const dropdown = document.getElementById("mobileServicesDropdown");
+      dropdown.classList.toggle("hidden");
+    }
+  </script>
 
 </body>
 

@@ -2,13 +2,42 @@
 <html lang="en">
 
 <head>
+    <!-- Basic Meta -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Jain Events and Caterers</title>
-    <link href="src/css/output.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>About Us | Jain Events and Caterers - Jaipur's Premier Event Experts</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Learn more about Jain Events and Caterers – Jaipur’s top vegetarian catering and event planning service for weddings, birthdays, and corporate events." />
+    <meta name="keywords"
+        content="About Jain Events, event planners Jaipur, vegetarian catering, wedding caterers Jaipur, top caterers in Rajasthan, event services Jaipur, Mohit Rajora" />
+    <meta name="author" content="Mohit Rajora" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="About Us | Jain Events and Caterers - Jaipur's Premier Event Experts" />
+    <meta property="og:description"
+        content="Get to know Jain Events and Caterers, your trusted catering and event management partner in Jaipur. Pure-veg menus, expert planning, and flawless execution." />
+    <meta property="og:image" content="https://jain-events-and-caterers.netlify.app/img/logo.jpg" />
+    <meta property="og:url" content="https://jain-events-and-caterers.netlify.app/about.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About Jain Events and Caterers - Leading Event Experts in Jaipur" />
+    <meta name="twitter:description"
+        content="Discover the story of Jain Events and Caterers – a trusted name for premium vegetarian catering and event services in Jaipur and beyond." />
+    <meta name="twitter:image" content="https://jain-events-and-caterers.netlify.app/img/logo.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://jain-events-and-caterers.netlify.app/about.html" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
+
+    <link href="src/css/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         @keyframes fadeInLeft {
             0% {
@@ -26,18 +55,21 @@
             animation: fadeInLeft 1s ease-out forwards;
         }
     </style>
-
 </head>
 
 <body class="bg-white text-black">
     <!-- Navbar -->
     <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md transition-all duration-500 ease-in-out">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto relative p-4">
-            <a href="./index.html"
-                class="flex items-center space-x-3 mx-auto md:mx-0 transition duration-300 hover:scale-105">
-                <img src="./img/logo.jpg" class="h-10 w-10 rounded-full" alt="Logo" />
-                <span class="text-white text-2xl font-semibold">Jain Events and Caterers</span>
+            <a href="index.html" class="flex items-center gap-2 flex-grow min-w-0 max-w-[75%]">
+                <img src="./img/logo.jpg" alt="Logo"
+                    class="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded-full shrink-0" />
+                <span
+                    class="text-base sm:text-xl font-semibold text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                    Jain Events and Caterers
+                </span>
             </a>
+
             <button id="menu-toggle" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 text-white rounded-lg md:hidden hover:bg-[#ff4d6b] focus:outline-none transition duration-300">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,21 +96,21 @@
                         <ul id="mobileServicesDropdown"
                             class="hidden md:absolute bg-white rounded-lg text-[#F8153E] text-sm border border-[#F8153E] mt-2 md:w-52 w-[85%] mx-auto md:mx-0 shadow-md z-50">
                             <li>
-                                <a href="./destination.html"
-                                    class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Wedding Services</a>
-                            </li>
-                            <li>
-                                <a href="./outdoor.html"
-                                    class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Anniversary Celebrations</a>
+                                <a href="./anniversary.html"
+                                class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Anniversary Celebrations</a>
                             </li>
                             <li>
                                 <a href="./birthday.html" class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Birthday
                                     & Kitty Party</a>
-                            </li>
-                            <li>
-                                <a href="./corporate.html"
+                                </li>
+                                <li>
+                                    <a href="./corporate.html"
                                     class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Corporate Catering</a>
-                            </li>
+                                </li>
+                                <li>
+                                    <a href="./destination.html"
+                                        class="block px-5 py-2 hover:bg-[#ffcdd3] rounded-md">Wedding Services</a>
+                                </li>
                         </ul>
                     </li>
                     <li><a href="./about.html" class="text-[#F2B1B8] block py-2 px-3 md:p-0 transition">About</a>
@@ -111,7 +143,7 @@
 
     <!-- About Section -->
     <section id="about"
-        class="py-20 px-6 sm:px-10 md:px-16 lg:px-24 text-gray-800 bg-gradient-to-b from-white via-pink-50 to-white">
+        class="py-12 px-6 sm:px-10 md:px-16 lg:px-24 text-gray-800 bg-gradient-to-b from-white via-pink-50 to-white">
 
         <div
             class="bg-white border border-pink-100 rounded-2xl shadow-2xl p-6 md:p-10 flex flex-col md:flex-row md:items-start gap-8">
@@ -193,6 +225,12 @@
         </div>
     </section>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/917230888688" target="_blank"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-7 h-7">
+        <span class="hidden sm:inline font-semibold text-base">WhatsApp Us</span>
+    </a>
 
     <!-- Footer -->
     <footer class="text-center p-4 text-sm text-white bg-[#F8153E]">

@@ -27,7 +27,8 @@
     "tailwindcss": "^4.1.8"
   },
   "scripts": {
-    "build": "npx tailwindcss -i ./frontend/src/css/input.css -o ./frontend/src/css/output.css --minify"
+    "build": "npx tailwindcss -i ./frontend/src/css/input.css -o ./frontend/src/css/output.css --minify",
+    "css":"npx tailwindcss -i ./frontend/src/css/input.css -o ./frontend/src/css/output.css --watch"
   },
   "repository": {
     "type": "git",
