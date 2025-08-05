@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Jain Events and Caterers</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
+
+    <link href="src/css/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 1s ease-out forwards;
+        }
+
+        .bg-yellow-200 {
+            background-color: #fef3c7;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Padding for fixed navbar -->
+    <div class="h-20 md:h-24"></div>
+
+    <!-- Banner Section -->
+    <section class="relative w-full bg-cover bg-center h-48 md:h-60 mt-[-25px] pt-20 md:pt-24"
+        style="background-image: url('./img/menubanner.jpg');">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50"></div>
+
+        <!-- Text -->
+        <div class="absolute inset-0 flex items-end justify-center md:justify-start px-6 md:px-12 pb-6 z-10">
+            <h1 class="text-white text-2xl md:text-4xl font-extrabold opacity-0 animate-fade-in-left">
+                Menu
+            </h1>
+        </div>
+    </section>
+
+    <section id="menu" class="bg-white py-12 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-[#F8153E] mb-8">Our Menu</h2>
+
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <input type="text" id="searchInput" placeholder="Search categories..."
+                    class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F8153E]" />
+            </div>
+
+            <!-- Accordion Grid -->
+            <div id="menuAccordion" class="flex flex-wrap gap-4">
+
+                <!-- 1. Jain Specialties -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E] transition"
+                        onclick="toggleAccordion(this)">
+                        Jain Specialties
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Jain Pav Bhaji <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Chole Bhature <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Dal Makhani <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Mix Veg <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Pulao <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Kofta Curry <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Khichdi <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Stuffed Paratha <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Bhindi Masala <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Tawa Paneer <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Jain Sweets -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Jain Sweets
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Jain Gulabjamuun <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Barfi <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Dry Fruit Ladoo <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Coconut Ladoo <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Kaju Katli <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Badam Halwa <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Mohanthal <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Besan Ladoo <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Gulab Halwa <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Jain Breakfast -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Jain Breakfast
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Jain Poha <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Upma <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Idli <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Dhokla <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Thepla <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Aloo Puri <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Sabudana Khichdi <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Paratha <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Sandwich <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                            <li>Jain Moong Chilla <span class="text-green-600 text-sm ml-2">🟢 Jain</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Punjabi Delights -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Punjabi Delights
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Paneer Butter Masala</li>
+                            <li>Chole Bhature</li>
+                            <li>Rajma Rice</li>
+                            <li>Kadhai Paneer</li>
+                            <li>Amritsari Kulcha</li>
+                            <li>Dal Makhani</li>
+                            <li>Stuffed Naan</li>
+                            <li>Butter Naan</li>
+                            <li>Mix Veg Curry</li>
+                            <li>Tandoori Roti</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. South Indian -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        South Indian
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Masala Dosa</li>
+                            <li>Idli Sambhar</li>
+                            <li>Uttapam</li>
+                            <li>Medu Vada</li>
+                            <li>Lemon Rice</li>
+                            <li>Rasam</li>
+                            <li>Coconut Chutney</li>
+                            <li>Upma</li>
+                            <li>Filter Coffee</li>
+                            <li>Curd Rice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. Rajasthani Thali -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Rajasthani Thali
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Dal Baati Churma</li>
+                            <li>Gatte Ki Sabzi</li>
+                            <li>Kadhi</li>
+                            <li>Ker Sangri</li>
+                            <li>Bajre Ki Roti</li>
+                            <li>Missi Roti</li>
+                            <li>Boondi Raita</li>
+                            <li>Lehsun Chutney</li>
+                            <li>Besan Mirchi</li>
+                            <li>Sweet Churma Ladoo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 7. Desserts -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Desserts
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Gulab Jamun</li>
+                            <li>Rasgulla</li>
+                            <li>Moong Dal Halwa</li>
+                            <li>Gajar Ka Halwa</li>
+                            <li>Jalebi</li>
+                            <li>Rabri</li>
+                            <li>Malpua</li>
+                            <li>Kesar Rasmalai</li>
+                            <li>Kheer</li>
+                            <li>Dry Fruit Ladoo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 8. Street Food -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Street Food
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Sev Puri</li>
+                            <li>Bhel Puri</li>
+                            <li>Dahi Puri</li>
+                            <li>Pav Bhaji</li>
+                            <li>Chole Bhature</li>
+                            <li>Vada Pav</li>
+                            <li>Paneer Kathi Roll</li>
+                            <li>Moong Dal Chilla</li>
+                            <li>Stuffed Kulcha</li>
+                            <li>Masala Dosa (Street Style)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 9. Chinese -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Chinese
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Veg Manchurian</li>
+                            <li>Chilli Paneer</li>
+                            <li>Hakka Noodles</li>
+                            <li>Spring Rolls</li>
+                            <li>Schezwan Rice</li>
+                            <li>Veg Fried Rice</li>
+                            <li>Hot & Sour Soup</li>
+                            <li>Sweet Corn Soup</li>
+                            <li>Gobi 65</li>
+                            <li>Chilli Garlic Noodles</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 10. Beverages -->
+                <div class="border rounded-lg shadow-sm w-full md:w-[48%] self-start">
+                    <button
+                        class="w-full flex justify-between items-center p-4 text-left text-lg font-semibold text-[#F8153E]   transition"
+                        onclick="toggleAccordion(this)">
+                        Beverages
+                        <svg class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="hidden px-4 pb-4 pt-2 text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Masala Chaas</li>
+                            <li>Sweet Lassi</li>
+                            <li>Salted Lassi</li>
+                            <li>Jaljeera</li>
+                            <li>Cold Coffee</li>
+                            <li>Badam Milk</li>
+                            <li>Fresh Lime Soda</li>
+                            <li>Mango Shake</li>
+                            <li>Rose Sharbat</li>
+                            <li>Chandan Sharbat</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/917230888688" target="_blank"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-7 h-7">
+        <span class="hidden sm:inline font-semibold text-base">WhatsApp Us</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-sm text-white bg-[#F8153E]">
+        © 2025 Jain Events and Caterers. All rights reserved.
+    </footer>
+
+    <script src="./js/menu.js"></script>
+    <script>
+        document.querySelectorAll(".accordion-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const accordion = button.closest(".accordion");
+                const content = accordion.querySelector(".accordion-content");
+                const svg = button.querySelector("svg");
+
+                // Toggle only the clicked one
+                content.classList.toggle("hidden");
+                svg.classList.toggle("rotate-180");
+            });
+        });
+    </script>
+    <script src="./js/include.js"></script>
+
+</body>
+
+</html>
