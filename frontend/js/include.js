@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </li>
         <li><a href="./about.html" class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">About</a></li>
         <li><a href="./contact.html" class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">Contact Us</a></li>
+        <li><a href="./blog.html" class="text-white block py-2 px-3 md:p-0 transition hover:text-[#F2B1B8]">Blogs</a></li>
       </ul>
     </div>
   </div>
