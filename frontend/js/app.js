@@ -1,26 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.getElementById("menu-toggle");
-  const navbar = document.getElementById("navbar-default");
   const navLogo = document.getElementById("nav-logo");
   const navButtons = document.querySelectorAll(".nav_btn");
 
-  // Toggle mobile menu & center logo
-  toggleBtn.addEventListener("click", () => {
-    navbar.classList.toggle("hidden");
-    navLogo.classList.toggle("mx-auto");
-    navLogo.classList.toggle("md:mx-0");
-  });
-
-  // Close menu on mobile after clicking a link
+  // Close menu on mobile after clicking a nav link + highlight
   navButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 768 && navbar && navLogo) {
         navbar.classList.add("hidden");
         navLogo.classList.add("mx-auto");
         navLogo.classList.remove("md:mx-0");
       }
 
-      // Highlight active nav item
       navButtons.forEach(b => {
         b.classList.remove("text-[#F2B1B8]");
         b.classList.add("text-white");
@@ -86,9 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.disconnect();
       }
     });
-  }, { threshold: 0.1 }); // Lower threshold for earlier trigger
+  }, { threshold: 0.1 });
 
   const statsSection = document.getElementById('stats-section');
   if (statsSection) observer.observe(statsSection);
 });
-

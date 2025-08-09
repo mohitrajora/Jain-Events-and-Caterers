@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const navbarContainer = document.getElementById("navbar-container");
+  const navbarContainer = document.getElementById("navbar-container");
 
-    if (navbarContainer) {
-        navbarContainer.innerHTML = `
+  if (navbarContainer) {
+    navbarContainer.innerHTML = `
 <nav class="bg-[#F8153E] fixed top-0 w-full z-50 shadow-md transition-all duration-500 ease-in-out">
   <div class="max-w-screen-xl mx-auto p-4 flex flex-wrap items-center justify-between relative">
     <a href="index.html" id="nav-logo" class="flex items-center gap-2 min-w-0 max-w-[75%]">
@@ -47,22 +47,22 @@ document.addEventListener("DOMContentLoaded", function () {
 </nav>
 `;
 
-        // Add JS after navbar is injected
-        const menuToggle = document.getElementById("menu-toggle");
-        const navbarMenu = document.getElementById("navbar-default");
-        const servicesToggle = document.getElementById("services-toggle");
-        const servicesDropdown = document.getElementById("mobileServicesDropdown");
+    // Add JS after navbar is injected
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbarMenu = document.getElementById("navbar-default");
+    const servicesToggle = document.getElementById("services-toggle");
+    const servicesDropdown = document.getElementById("mobileServicesDropdown");
 
-        if (menuToggle && navbarMenu) {
-            menuToggle.addEventListener("click", () => {
-                navbarMenu.classList.toggle("hidden");
-            });
-        }
-
-        if (servicesToggle && servicesDropdown) {
-            servicesToggle.addEventListener("click", () => {
-                servicesDropdown.classList.toggle("hidden");
-            });
-        }
+    if (menuToggle && navbarMenu) {
+      menuToggle.addEventListener("click", () => {
+        navbarMenu.classList.toggle("hidden");
+      });
     }
+
+    if (servicesToggle && servicesDropdown) {
+      servicesToggle.addEventListener("click", () => {
+        servicesDropdown.classList.toggle("hidden");
+      });
+    }
+  }
 });

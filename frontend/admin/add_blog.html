@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Blog | Jain Events and Caterers</title>
+
+    <!-- SEO Protection for Admin -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+
+    <link rel="icon" type="image/jpg" href="/img/logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-color: #F8153E;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-color);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #d21235;
+        }
+
+        .brand-text {
+            color: var(--brand-color);
+        }
+
+        .brand-border {
+            border-color: var(--brand-color);
+        }
+
+        .brand-focus:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(248, 21, 62, 0.4);
+            border-color: var(--brand-color);
+        }
+
+        /* Custom breakpoint for 650px */
+        @media (min-width: 650px) {
+            .desktop-menu {
+                display: flex !important;
+            }
+
+            .mobile-menu,
+            .hamburger {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 649px) {
+            .desktop-menu {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: block !important;
+            }
+
+            .mobile-menu a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-[var(--brand-color)] p-4 shadow-md">
+        <div class="flex justify-between items-center">
+            <a href="index.html" id="nav-logo" class="flex items-center gap-2 min-w-0 max-w-[75%]">
+                <img src="/img/logo.jpg" alt="Logo"
+                    class="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded-full shrink-0" />
+                <span
+                    class="text-base sm:text-xl font-semibold text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                    Jain Events and Caterers
+                </span>
+            </a>
+
+            <button id="menu-toggle" class="hamburger text-white focus:outline-none hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <div class="desktop-menu hidden space-x-6">
+                <a href="dashboard.html" class="text-white hover:underline">Dashboard</a>
+                <a href="blog.html" class="text-white hover:underline">All Blogs</a>
+                <a href="add_blog.html" class="text-white font-semibold underline">Add Blog</a>
+                <a href="messages.html" class="text-white hover:underline">Messages</a>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu hidden mt-4 flex flex-col space-y-3 items-center">
+            <a href="dashboard.html" class="text-white hover:underline">Dashboard</a>
+            <a href="blog.html" class="text-white hover:underline">All Blogs</a>
+            <a href="add_blog.html" class="text-white font-semibold underline">Add Blog</a>
+            <a href="messages.html" class="text-white hover:underline">Messages</a>
+        </div>
+    </nav>
+
+    <!-- Main Form -->
+    <main class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-8">
+        <form id="addBlogForm" class="space-y-6">
+            <div>
+                <label class="block brand-text font-medium mb-2">Blog Title</label>
+                <input type="text" name="title" placeholder="Enter blog title"
+                    class="w-full border rounded-lg px-4 py-2 brand-focus">
+            </div>
+
+            <div>
+                <label class="block brand-text font-medium mb-2">Category</label>
+                <select name="category" class="w-full border rounded-lg px-4 py-2 brand-focus">
+                    <option value="">Select category</option>
+                    <option value="wedding">Wedding</option>
+                    <option value="birthday">Birthday</option>
+                    <option value="corporate">Corporate</option>
+                    <option value="festival">Festival</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block brand-text font-medium mb-2">Upload Image</label>
+                <input type="file" id="blogImage" accept="image/*" class="w-full border rounded-lg p-2 brand-focus">
+                <div id="imagePreview" class="mt-4 hidden">
+                    <p class="text-gray-500 mb-2">Image Preview:</p>
+                    <img src="" alt="Preview" class="rounded-lg shadow-md max-h-64 border brand-border">
+                </div>
+            </div>
+
+            <div>
+                <label class="block brand-text font-medium mb-2">Content</label>
+                <textarea name="content" rows="6" placeholder="Write your blog content here..."
+                    class="w-full border rounded-lg px-4 py-2 brand-focus"></textarea>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+                <button type="button" onclick="window.location.href='dashboard.html'"
+                    class="bg-gray-300 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
+                    Cancel
+                </button>
+                <button type="submit" class="btn-primary px-6 py-2 rounded-lg shadow hover:shadow-lg">
+                    Publish Blog
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Popup Modal -->
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-50">
+        <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full text-center">
+            <h2 id="popup-title" class="text-lg font-semibold mb-2 brand-text">Message</h2>
+            <p id="popup-message" class="text-gray-700 mb-4">This is a popup message.</p>
+            <button onclick="closePopup()" class="btn-primary px-4 py-2 rounded-lg">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Image preview
+        document.getElementById("blogImage").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.querySelector("#imagePreview img");
+                    img.src = e.target.result;
+                    document.getElementById("imagePreview").classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission with popup
+        document.getElementById("addBlogForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const title = this.title.value.trim();
+            const category = this.category.value;
+            const content = this.content.value.trim();
+
+            if (!title || !category || !content) {
+                showPopup("Error", "Please fill all required fields.");
+                return;
+            }
+
+            showPopup("Success", "Blog published successfully!");
+        });
+
+        // Navbar toggle
+        document.getElementById("menu-toggle").addEventListener("click", function () {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+
+        // Popup functions
+        function showPopup(title, message) {
+            document.getElementById("popup-title").innerText = title;
+            document.getElementById("popup-message").innerText = message;
+            document.getElementById("popup").classList.remove("hidden");
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.add("hidden");
+        }
+    </script>
+
+</body>
+
+</html>
