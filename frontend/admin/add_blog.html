@@ -128,15 +128,6 @@
             </div>
 
             <div>
-                <label class="block brand-text font-medium mb-2">Upload Image</label>
-                <input type="file" id="blogImage" accept="image/*" class="w-full border rounded-lg p-2 brand-focus">
-                <div id="imagePreview" class="mt-4 hidden">
-                    <p class="text-gray-500 mb-2">Image Preview:</p>
-                    <img src="" alt="Preview" class="rounded-lg shadow-md max-h-64 border brand-border">
-                </div>
-            </div>
-
-            <div>
                 <label class="block brand-text font-medium mb-2">Content</label>
                 <textarea name="content" rows="6" placeholder="Write your blog content here..."
                     class="w-full border rounded-lg px-4 py-2 brand-focus"></textarea>
@@ -164,20 +155,6 @@
     </div>
 
     <script>
-        // Image preview
-        document.getElementById("blogImage").addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.querySelector("#imagePreview img");
-                    img.src = e.target.result;
-                    document.getElementById("imagePreview").classList.remove("hidden");
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
         // Form submission with popup
         document.getElementById("addBlogForm").addEventListener("submit", function (event) {
             event.preventDefault();
