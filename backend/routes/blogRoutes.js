@@ -4,10 +4,10 @@ import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Public route
+// Public
 router.get("/", getBlogs);
 
-// Protected routes
+// Protected
 router.post("/create-blog", verifyToken, addBlog);
 router.put("/update-blog/:id", verifyToken, updateBlog);
 router.delete("/delete-blog/:id", verifyToken, deleteBlog);

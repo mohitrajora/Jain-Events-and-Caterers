@@ -23,7 +23,7 @@ export const addBlog = async (req, res) => {
         res.status(201).json({ id: docRef.id, ...newBlog });
 
     } catch (error) {
-        console.error("Error Adding Blog:", error);
+        console.error("Error adding blog:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
@@ -39,7 +39,7 @@ export const getBlogs = async (req, res) => {
         res.status(200).json(blogs);
     } catch (error) {
         console.error("Error fetching blogs:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
@@ -51,7 +51,7 @@ export const deleteBlog = async (req, res) => {
         res.status(200).json({ message: "Blog deleted successfully" });
     } catch (error) {
         console.error("Error deleting blog:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
@@ -78,6 +78,6 @@ export const updateBlog = async (req, res) => {
         res.status(200).json({ message: "Blog updated successfully" });
     } catch (error) {
         console.error("Error updating blog:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
