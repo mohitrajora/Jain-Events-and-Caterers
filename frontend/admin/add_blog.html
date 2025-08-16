@@ -155,24 +155,41 @@
     </div>
 
     <script>
-        // Form submission with popup
-        document.getElementById("addBlogForm").addEventListener("submit", function (event) {
+        document.getElementById("addBlogForm").addEventListener("submit", async function (event) {
             event.preventDefault();
+
             const title = this.title.value.trim();
             const category = this.category.value;
             const content = this.content.value.trim();
+            const token = localStorage.getItem("token");
 
             if (!title || !category || !content) {
                 showPopup("Error", "Please fill all required fields.");
                 return;
             }
 
-            showPopup("Success", "Blog published successfully!");
-        });
+            try {
+                const res = await fetch("http://localhost:5000/blogs/create-blog", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, category, content, date: new Date().toISOString() })
+                });
 
-        // Navbar toggle
-        document.getElementById("menu-toggle").addEventListener("click", function () {
-            document.getElementById("mobile-menu").classList.toggle("hidden");
+                const data = await res.json();
+
+                if (res.ok) {
+                    showPopup("Success", "Blog published successfully!");
+                    setTimeout(() => window.location.href = "/admin/dashboard.html", 1500);
+                } else {
+                    showPopup("Error", data.message || "Failed to create blog.");
+                }
+            } catch (error) {
+                showPopup("Error", "Something went wrong.");
+                console.error(error);
+            }
         });
 
         // Popup functions

@@ -178,23 +178,37 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const searchInput = document.getElementById("blogSearch");
-            const blogCards = document.querySelectorAll(".blog-card");
+        document.addEventListener("DOMContentLoaded", async () => {
+            const blogGrid = document.getElementById("blogGrid");
 
-            searchInput.addEventListener("input", function () {
-                const query = this.value.toLowerCase();
+            try {
+                const res = await fetch("http://localhost:5000/blogs"); // Your GET /blogs API
+                const blogs = await res.json();
 
-                blogCards.forEach(card => {
-                    const title = card.querySelector("h3").textContent.toLowerCase();
-                    const desc = card.querySelector("p").textContent.toLowerCase();
+                // Clear existing hardcoded blogs
+                blogGrid.innerHTML = "";
 
-                    const isVisible = title.includes(query) || desc.includes(query);
-                    card.style.display = isVisible ? "block" : "none";
+                blogs.forEach(blog => {
+                    const blogCard = `
+                    <div class="blog-card bg-white border rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition duration-300">
+                        <img src="${blog.image || 'img/Older-Kid-Birthday-Party.jpg'}" alt="${blog.title}" class="w-full h-48 object-cover" />
+                        <div class="p-6 text-left">
+                            <h3 class="text-xl font-semibold text-[#F8153E] mb-2">${blog.title}</h3>
+                            <p class="text-gray-600 text-sm mb-4">${blog.description}</p>
+                            <a href="${blog.link || '#'}" class="text-[#F8153E] font-medium hover:underline">Read More →</a>
+                        </div>
+                    </div>
+                `;
+                    blogGrid.innerHTML += blogCard;
                 });
-            });
+
+            } catch (error) {
+                console.error("Error fetching blogs:", error);
+                blogGrid.innerHTML += `<p class="text-red-500 col-span-full text-center">Failed to load blogs.</p>`;
+            }
         });
     </script>
+
     <script src="./js/include.js"></script>
 
 </body>
