@@ -156,7 +156,7 @@
         async function loadDashboardData() {
             try {
                 // Fetch blogs
-                const blogRes = await fetch("http://localhost:5000/blogs");
+                const blogRes = await fetch("http://localhost:5000/blogs" ||"https://backend-jaine-cforrender.onrender.com/blogs");
                 const blogs = await blogRes.json();
 
                 // Fetch messages 
@@ -198,7 +198,7 @@
             if (confirm("Are you sure you want to delete this blog?")) {
                 try {
                     const token = localStorage.getItem("token"); // Assuming you store JWT in localStorage
-                    const res = await fetch(`http://localhost:5000/blogs/delete-blog/${id}`, {
+                    const res = await fetch(`http://localhost:5000/blogs/delete-blog/${id}` ||`https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`, {
                         method: "DELETE",
                         headers: {
                             Authorization: `Bearer ${token}`

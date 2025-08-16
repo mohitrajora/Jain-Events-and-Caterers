@@ -5,7 +5,7 @@ document.getElementById("adminLoginForm").addEventListener("submit", async (e) =
     const password = e.target.password.value;
 
     try {
-        const res = await fetch("http://localhost:5000/admin/login", {
+        const res = await fetch("http://localhost:5000/admin/login" || "https://backend-jaine-cforrender.onrender.com/admin/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),

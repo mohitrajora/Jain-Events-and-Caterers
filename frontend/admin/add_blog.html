@@ -169,7 +169,7 @@
             }
 
             try {
-                const res = await fetch("http://localhost:5000/blogs/create-blog", {
+                const res = await fetch("http://localhost:5000/blogs/create-blog" || "https://backend-jaine-cforrender.onrender.com/blogs/create-blog", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
