@@ -12,6 +12,7 @@
 
     <link rel="icon" type="image/jpg" href="/img/logo.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
             --brand-color: #F8153E;
@@ -145,15 +146,6 @@
         </form>
     </main>
 
-    <!-- Popup Modal -->
-    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-50">
-        <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full text-center">
-            <h2 id="popup-title" class="text-lg font-semibold mb-2 brand-text">Message</h2>
-            <p id="popup-message" class="text-gray-700 mb-4">This is a popup message.</p>
-            <button onclick="closePopup()" class="btn-primary px-4 py-2 rounded-lg">OK</button>
-        </div>
-    </div>
-
     <script>
         document.getElementById("addBlogForm").addEventListener("submit", async function (event) {
             event.preventDefault();
@@ -164,7 +156,11 @@
             const token = localStorage.getItem("token");
 
             if (!title || !category || !content) {
-                showPopup("Error", "Please fill all required fields.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Please fill all required fields."
+                });
                 return;
             }
 
@@ -191,30 +187,31 @@
                 const data = await res.json();
 
                 if (res.ok) {
-                    showPopup("Success", "Blog published successfully!");
-                    setTimeout(() => window.location.href = "/admin/dashboard.html", 1500);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Blog Published!",
+                        text: "Your blog has been successfully posted.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setTimeout(() => window.location.href = "/admin/dashboard.html", 1600);
                 } else {
-                    showPopup("Error", data.message || "Failed to create blog.");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed",
+                        text: data.message || "Failed to create blog."
+                    });
                 }
             } catch (error) {
-                showPopup("Error", "Something went wrong.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong while publishing."
+                });
                 console.error(error);
             }
         });
-
-        // Popup functions
-        function showPopup(title, message) {
-            document.getElementById("popup-title").innerText = title;
-            document.getElementById("popup-message").innerText = message;
-            document.getElementById("popup").classList.remove("hidden");
-        }
-
-        function closePopup() {
-            document.getElementById("popup").classList.add("hidden");
-        }
     </script>
-
-
 </body>
 
 </html>
