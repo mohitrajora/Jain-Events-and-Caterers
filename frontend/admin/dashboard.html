@@ -155,165 +155,104 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        async function loadBlogs() {
+            try {
+                const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
+                const blogs = await res.json();
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const addBlogForm = document.getElementById("addBlogForm");
-            const blogList = document.getElementById("blogList");
+                const blogTableBody = document.getElementById("blogTableBody");
+                blogTableBody.innerHTML = "";
 
-            // ✅ Authenticated Fetch Wrapper
-            async function fetchWithAuth(url, options = {}) {
-                const token = localStorage.getItem("token");
-
-                if (!token) {
-                    window.location.href = "login.html";
+                if (!Array.isArray(blogs) || blogs.length === 0) {
+                    blogTableBody.innerHTML = `<tr><td colspan="3" class="text-center p-4 text-gray-500">No blogs found.</td></tr>`;
+                    document.getElementById("blogCount").innerText = 0;
                     return;
                 }
 
-                const res = await fetch(url, {
-                    ...options,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`,
-                        ...(options.headers || {})
-                    }
+                // ✅ Update blog count
+                document.getElementById("blogCount").innerText = blogs.length;
+
+                blogs.forEach(blog => {
+                    const row = `
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="p-4 border-b text-gray-700 font-medium">${blog.title}</td>
+                        <td class="p-4 border-b text-gray-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
+                        <td class="p-4 border-b text-center space-x-2 whitespace-nowrap">
+                            <button onclick="editBlog('${blog.id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
+                            <button onclick="deleteBlog('${blog.id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                    blogTableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error loading blogs:", error);
+                document.getElementById("blogTableBody").innerHTML = `<tr><td colspan="3" class="text-center p-4 text-red-500">Failed to load blogs.</td></tr>`;
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to load blogs. Please try again later!"
+                });
+            }
+        }
+
+        // ✅ Delete handler with responsive confirmation
+        async function deleteBlog(id) {
+            const token = localStorage.getItem("token");
+
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "This blog will be permanently deleted!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            });
+
+            if (!confirm.isConfirmed) return;
+
+            try {
+                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`, {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}` }
                 });
 
-                if (res.status === 401) {
-                    // Token expired → redirect to login
-                    localStorage.removeItem("token");
-                    window.location.href = "login.html";
-                    return;
+                const data = await res.json();
+                if (res.ok) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Deleted!",
+                        text: "The blog has been removed successfully.",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    loadBlogs();
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed",
+                        text: data.message || "Could not delete blog. Try again."
+                    });
                 }
-
-                return res;
+            } catch (error) {
+                console.error("Error deleting blog:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong while deleting."
+                });
             }
+        }
 
-            // ✅ Load Blogs
-            async function loadBlogs() {
-                try {
-                    const res = await fetchWithAuth("http://localhost:5000/api/blogs/get-blogs");
-                    if (!res) return; // if redirected
-                    const blogs = await res.json();
-
-                    blogList.innerHTML = "";
-                    blogs.forEach(blog => {
-                        const li = document.createElement("li");
-                        li.classList.add("p-4", "bg-white", "rounded-lg", "shadow-md", "flex", "justify-between", "items-center");
-
-                        li.innerHTML = `
-            <div>
-                <h3 class="text-lg font-semibold">${blog.title}</h3>
-                <p class="text-gray-600">${blog.content}</p>
-            </div>
-            <div>
-                <button onclick="editBlog('${blog._id}', '${blog.title}', '${blog.content}')"
-                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">
-                    Edit
-                </button>
-                <button onclick="deleteBlog('${blog._id}')"
-                    class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                    Delete
-                </button>
-            </div>
-            `;
-                        blogList.appendChild(li);
-                    });
-                } catch (err) {
-                    console.error("Error loading blogs:", err);
-                }
-            }
-
-            // ✅ Add Blog
-            addBlogForm.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const title = document.getElementById("title").value;
-                const content = document.getElementById("content").value;
-
-                try {
-                    const res = await fetchWithAuth("http://localhost:5000/api/blogs/add-blog", {
-                        method: "POST",
-                        body: JSON.stringify({ title, content })
-                    });
-
-                    if (!res) return;
-                    if (res.ok) {
-                        alert("Blog added successfully!");
-                        addBlogForm.reset();
-                        loadBlogs();
-                    } else {
-                        alert("Error adding blog!");
-                    }
-                } catch (err) {
-                    console.error("Error adding blog:", err);
-                }
+        // ✅ Edit placeholder popup
+        function editBlog(id) {
+            Swal.fire({
+                icon: "info",
+                title: "Edit Blog",
+                text: "Edit functionality not implemented yet. Blog ID: " + id
             });
-
-            // ✅ Delete Blog
-            window.deleteBlog = async (id) => {
-                if (!confirm("Are you sure you want to delete this blog?")) return;
-
-                try {
-                    const res = await fetchWithAuth(`http://localhost:5000/api/blogs/delete-blog/${id}`, {
-                        method: "DELETE"
-                    });
-
-                    if (!res) return;
-                    if (res.ok) {
-                        alert("Blog deleted successfully!");
-                        loadBlogs();
-                    } else {
-                        alert("Error deleting blog!");
-                    }
-                } catch (err) {
-                    console.error("Error deleting blog:", err);
-                }
-            };
-
-            // ✅ Edit Blog (optional popup handling)
-            window.editBlog = (id, title, content) => {
-                document.getElementById("editId").value = id;
-                document.getElementById("editTitle").value = title;
-                document.getElementById("editContent").value = content;
-                document.getElementById("editModal").classList.remove("hidden");
-            };
-
-            document.getElementById("saveEditBtn").addEventListener("click", async () => {
-                const id = document.getElementById("editId").value;
-                const title = document.getElementById("editTitle").value;
-                const content = document.getElementById("editContent").value;
-
-                try {
-                    const res = await fetchWithAuth(`http://localhost:5000/api/blogs/update-blog/${id}`, {
-                        method: "PUT",
-                        body: JSON.stringify({ title, content })
-                    });
-
-                    if (!res) return;
-                    if (res.ok) {
-                        alert("Blog updated successfully!");
-                        document.getElementById("editModal").classList.add("hidden");
-                        loadBlogs();
-                    } else {
-                        alert("Error updating blog!");
-                    }
-                } catch (err) {
-                    console.error("Error updating blog:", err);
-                }
-            });
-
-            document.getElementById("closeEditBtn").addEventListener("click", () => {
-                document.getElementById("editModal").classList.add("hidden");
-            });
-
-            // ✅ Logout
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                localStorage.removeItem("token");
-                window.location.href = "login.html";
-            });
-
-            // Load blogs on page start
-            loadBlogs();
-        });
+        }
 
         // Load blogs on page load
         window.onload = loadBlogs;
