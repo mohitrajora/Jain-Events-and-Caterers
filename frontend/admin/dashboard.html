@@ -152,35 +152,35 @@
 
     <!-- Script -->
     <script>
+        const API_BASE =
+            window.location.hostname === "localhost"
+                ? "http://localhost:5000"
+                : "https://backend-jaine-cforrender.onrender.com";
+
         // Load data from API
         async function loadDashboardData() {
             try {
                 // Fetch blogs
-                const blogRes = await fetch("http://localhost:5000/blogs" ||"https://backend-jaine-cforrender.onrender.com/blogs");
+                const blogRes = await fetch(`${API_BASE}/blogs`);
                 const blogs = await blogRes.json();
-
-                // Fetch messages 
-                // const messageRes = await fetch("http://localhost:5000/messages"); 
-                // const messages = await messageRes.json();
 
                 // Update counts
                 document.getElementById("blogCount").innerText = blogs.length;
-                // document.getElementById("messageCount").innerText = messages.length;
 
                 // Populate blogs table
                 const blogTableBody = document.getElementById("blogTableBody");
                 blogTableBody.innerHTML = "";
-                blogs.forEach((blogs) => {
+                blogs.forEach((blog) => {
                     const row = `
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="p-4 border-b text-gray-700 font-medium">${blogs.title}</td>
-                        <td class="p-4 border-b text-gray-500">${blogs.date}</td>
-                        <td class="p-4 border-b text-center space-x-2 whitespace-nowrap">
-                            <button onclick="editBlog('${blogs._id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
-                            <button onclick="deleteBlog('${blogs._id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
-                        </td>
-                    </tr>
-                `;
+        <tr class="hover:bg-gray-50 transition">
+            <td class="p-4 border-b text-gray-700 font-medium">${blog.title}</td>
+            <td class="p-4 border-b text-gray-500">${blog.date}</td>
+            <td class="p-4 border-b text-center space-x-2 whitespace-nowrap">
+                <button onclick="editBlog('${blog._id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
+                <button onclick="deleteBlog('${blog._id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
+            </td>
+        </tr>
+      `;
                     blogTableBody.innerHTML += row;
                 });
 
@@ -189,24 +189,20 @@
             }
         }
 
-        // Edit & Delete actions
-        function editBlog(id) {
-            alert(`Edit blog with ID: ${id}`);
-        }
-
+        // Delete Blog
         async function deleteBlog(id) {
             if (confirm("Are you sure you want to delete this blog?")) {
                 try {
-                    const token = localStorage.getItem("token"); // Assuming you store JWT in localStorage
-                    const res = await fetch(`http://localhost:5000/blogs/delete-blog/${id}` ||`https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`, {
+                    const token = localStorage.getItem("token");
+                    const res = await fetch(`${API_BASE}/blogs/delete-blog/${id}`, {
                         method: "DELETE",
                         headers: {
-                            Authorization: `Bearer ${token}`
-                        }
+                            Authorization: `Bearer ${token}`,
+                        },
                     });
                     if (res.ok) {
                         alert("Blog deleted successfully");
-                        loadDashboardData(); // Reload table
+                        loadDashboardData();
                     } else {
                         alert("Failed to delete blog");
                     }
@@ -216,15 +212,6 @@
             }
         }
 
-        // Load data when page opens
-        loadDashboardData();
-
-        // Hamburger toggle
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const navMenu = document.getElementById('navMenu');
-        hamburgerBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('hidden');
-        });
     </script>
 
 </body>
