@@ -246,13 +246,67 @@
         }
 
         // ✅ Edit placeholder popup
-        function editBlog(id) {
-            Swal.fire({
-                icon: "info",
-                title: "Edit Blog",
-                text: "Edit functionality not implemented yet. Blog ID: " + id
-            });
+        async function editBlog(id) {
+            try {
+                // Fetch existing blog data first
+                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${id}`);
+                if (!res.ok) throw new Error("Failed to fetch blog details");
+                const blog = await res.json();
+
+                // Show SweetAlert form with pre-filled values
+                const { value: formValues } = await Swal.fire({
+                    title: "Edit Blog",
+                    html: `
+        <input id="swal-title" class="swal2-input" placeholder="Title" value="${blog.title || ""}">
+        <input id="swal-category" class="swal2-input" placeholder="Category" value="${blog.category || ""}">
+        <textarea id="swal-content" class="swal2-textarea" placeholder="Content">${blog.content || ""}</textarea>
+      `,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Update",
+                    preConfirm: () => {
+                        return {
+                            title: document.getElementById("swal-title").value.trim(),
+                            category: document.getElementById("swal-category").value.trim(),
+                            content: document.getElementById("swal-content").value.trim(),
+                        };
+                    }
+                });
+
+                if (formValues) {
+                    // Show loading
+                    Swal.fire({
+                        title: "Updating...",
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+
+                    // Send update request
+                    const updateRes = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formValues),
+                    });
+
+                    const updateData = await updateRes.json();
+
+                    Swal.close();
+
+                    if (updateRes.ok) {
+                        Swal.fire("Success!", "Blog updated successfully.", "success");
+                        // ✅ Refresh or update the blog list dynamically
+                        loadBlogs();
+                    } else {
+                        throw new Error(updateData.message || "Failed to update blog");
+                    }
+                }
+            } catch (err) {
+                Swal.fire("Error", err.message, "error");
+            }
         }
+
 
         // Load blogs on page load
         window.onload = loadBlogs;
