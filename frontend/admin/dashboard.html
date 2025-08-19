@@ -247,51 +247,73 @@
 
         // ✅ Edit placeholder popup
         async function editBlog(id) {
-            const { value: formValues } = await Swal.fire({
-                title: "Edit Blog",
-                html: `
-            <input id="swal-title" class="swal2-input" placeholder="Blog Title">
-                <input id="swal-category" class="swal2-input" placeholder="Category">
-                    <textarea id="swal-content" class="swal2-textarea" placeholder="Blog Content"></textarea>
-                    `,
-                focusConfirm: false,
-                showCancelButton: true,
-                confirmButtonText: "Update",
-                preConfirm: () => {
-                    return {
-                        title: document.getElementById("swal-title").value,
-                        category: document.getElementById("swal-category").value,
-                        content: document.getElementById("swal-content").value
-                    };
+            try {
+                // Fetch current blog data
+                const response = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${id}`);
+                if (!response.ok) {
+                    throw new Error("Blog not found!");
                 }
-            });
+                const blog = await response.json();
 
-            if (formValues) {
-                try {
-                    const response = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`, {
+                // SweetAlert2 form popup with your theme
+                const { value: formValues } = await Swal.fire({
+                    title: "✏️ Edit Blog",
+                    html: `
+            <input id="swal-input-title" class="swal2-input" placeholder="Title" value="${blog.title}">
+                <input id="swal-input-category" class="swal2-input" placeholder="Category" value="${blog.category}">
+                    <textarea id="swal-input-content" class="swal2-textarea" placeholder="Content">${blog.content}</textarea>
+                    `,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: "💾 Save Changes",
+                    cancelButtonText: "❌ Cancel",
+                    confirmButtonColor: "var(--brand-color)",
+                    cancelButtonColor: "#555",
+                    preConfirm: () => {
+                        const title = document.getElementById("swal-input-title").value.trim();
+                        const category = document.getElementById("swal-input-category").value.trim();
+                        const content = document.getElementById("swal-input-content").value.trim();
+
+                        if (!title || !category || !content) {
+                            Swal.showValidationMessage("⚠️ All fields are required");
+                            return false;
+                        }
+                        return { title, category, content };
+                    }
+                });
+
+                if (formValues) {
+                    // Send update request
+                    const updateResponse = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`, {
                         method: "PUT",
                         headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify(formValues)
                     });
 
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        Swal.fire("Success", "Blog updated successfully!", "success");
-                        loadBlogs(); // refresh dashboard list
-                    } else {
-                        Swal.fire("Error", data.message || "Failed to update blog", "error");
+                    if (!updateResponse.ok) {
+                        throw new Error("Failed to update blog!");
                     }
-                } catch (err) {
-                    console.error(err);
-                    Swal.fire("Error", "Something went wrong!", "error");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "✅ Updated!",
+                        text: "Blog updated successfully.",
+                        confirmButtonColor: "var(--brand-color)"
+                    });
+
+                    loadBlogs(); // reload blogs
                 }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "❌ Error",
+                    text: error.message,
+                    confirmButtonColor: "var(--brand-color)"
+                });
             }
         }
-
 
 
         // Load blogs on page load
