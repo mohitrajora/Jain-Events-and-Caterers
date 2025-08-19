@@ -161,7 +161,9 @@
         async function loadDashboardData() {
             try {
                 // Fetch blogs
-                const blogRes = await fetch(`${API_BASE}/blogs`);
+                const blogRes = await fetch(`${API_BASE}/blogs`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
                 const blogs = await blogRes.json();
 
                 // Update counts
