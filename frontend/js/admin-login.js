@@ -1,11 +1,18 @@
+// Pick API base depending on environment
+const API_BASE =
+    window.location.hostname === "localhost"
+        ? "http://localhost:5000"
+        : "https://backend-jaine-cforrender.onrender.com";
+
 document.getElementById("adminLoginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+    const errorMsg = document.getElementById("loginError");
 
     try {
-        const res = await fetch("http://localhost:5000/admin/login" || "https://backend-jaine-cforrender.onrender.com/admin/login", {
+        const res = await fetch(`${API_BASE}/admin/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -13,16 +20,20 @@ document.getElementById("adminLoginForm").addEventListener("submit", async (e) =
 
         const data = await res.json();
 
-        if (res.ok) {
+        if (res.ok && data.token) {
+            // Save JWT token
             localStorage.setItem("token", data.token);
+
+            // Redirect to dashboard
             window.location.href = "/admin/dashboard.html";
         } else {
-            document.getElementById("loginError").classList.remove("hidden");
-            document.getElementById("loginError").textContent = data.message || "Invalid credentials.";
+            errorMsg.classList.remove("hidden");
+            errorMsg.textContent = data.message || "Invalid credentials.";
         }
     } catch (error) {
-        document.getElementById("loginError").classList.remove("hidden");
-        document.getElementById("loginError").textContent = "Something went wrong. Please try again.";
+        console.error("Login error:", error);
+        errorMsg.classList.remove("hidden");
+        errorMsg.textContent = "Something went wrong. Please try again.";
     }
 });
 

@@ -168,14 +168,24 @@
                 return;
             }
 
+            // Choose backend dynamically (local → production fallback)
+            const API_URL = window.location.hostname === "localhost"
+                ? "http://localhost:5000/blogs/create-blog"
+                : "https://backend-jaine-cforrender.onrender.com/blogs/create-blog";
+
             try {
-                const res = await fetch("http://localhost:5000/blogs/create-blog" || "https://backend-jaine-cforrender.onrender.com/blogs/create-blog", {
+                const res = await fetch(API_URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ title, category, content, date: new Date().toISOString() })
+                    body: JSON.stringify({
+                        title,
+                        category,
+                        content,
+                        date: new Date().toISOString()
+                    })
                 });
 
                 const data = await res.json();
@@ -203,6 +213,7 @@
             document.getElementById("popup").classList.add("hidden");
         }
     </script>
+
 
 </body>
 
