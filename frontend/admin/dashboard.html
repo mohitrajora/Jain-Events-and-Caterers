@@ -173,10 +173,10 @@
                     const row = `
                         <tr class="hover:bg-gray-50 transition">
                             <td class="p-4 border-b text-gray-700 font-medium">${blog.title}</td>
-                            <td class="p-4 border-b text-gray-500">${new Date(blog.date).toLocaleDateString()}</td>
+                            <td class="p-4 border-b text-gray-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
                             <td class="p-4 border-b text-center space-x-2 whitespace-nowrap">
-                                <button onclick="editBlog('${blog._id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
-                                <button onclick="deleteBlog('${blog._id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
+                                <button onclick="editBlog('${blog.id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
+                                <button onclick="deleteBlog('${blog.id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
                             </td>
                         </tr>
                     `;
