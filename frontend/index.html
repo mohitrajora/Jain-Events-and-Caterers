@@ -79,7 +79,7 @@
   </section>
 
   <!-- Stats Section -->
-  <section id="stats-section" class="bg-gray-100 py-16 text-center">
+  <section id="stats-section" class="bg-white py-16 text-center">
     <h2 class="text-4xl font-bold text-gray-800 mb-4">Facts and Figures</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-gray-700">
       <div>
@@ -105,15 +105,53 @@
   <section class="p-6">
     <div class="swiper w-full h-[75vh] max-w-screen-xl mx-auto rounded-2xl shadow-lg overflow-hidden relative">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="./img/caterer.jpg" class="w-full h-full object-cover" alt="Slide 1" /></div>
-        <div class="swiper-slide"><img src="./img/istockphoto-637765812-612x612.jpg" class="w-full h-full object-cover"
-            alt="Slide 2" /></div>
-        <div class="swiper-slide"><img src="./img/premium_photo-1723291306365-841e10185b6f.jpeg"
-            class="w-full h-full object-cover" alt="Slide 3" /></div>
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <picture>
+            <source srcset="/img/JE&C/Counter av.avif" type="image/avif">
+            <source srcset="/img/JE&C/Counter webp.webp" type="image/webp">
+            <img src="/img/JE&C/Counter.jpg" class="w-full h-full object-cover" alt="Slide 1" loading="lazy" />
+          </picture>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <picture>
+            <source srcset="./img/JE&C/slider image 1.avif" type="image/avif">
+            <source srcset="./img/JE&C/slider image webp.webp" type="image/webp">
+            <img src="./img/JE&C/slider image reakl.jpg" class="w-full h-full object-cover" alt="Slide 3" loading="lazy"
+              width="1920" height="1080" />
+          </picture>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide">
+          <picture>
+            <source srcset="./img/JE&C/slider 2.avif" type="image/avif">
+            <source srcset="./img/JE&C/slider 2 webp.webp" type="image/webp">
+            <img src="./img/JE&C/slider 2.jpg" class="w-full h-full object-cover" alt="Slide 3" loading="lazy"
+              width="1920" height="1080" />
+          </picture>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="swiper-slide">
+          <picture>
+            <source srcset="./img/JE&C/Ice cream av.avif" type="image/avif">
+            <source srcset="./img/JE&C/Ice cream webp.webp" type="image/webp">
+            <img src="./img/JE&C/Ice cream.jpg" class="w-full h-full object-cover" alt="Slide 3" loading="lazy" />
+          </picture>
+        </div>
+
       </div>
+
+      <!-- Swiper Controls -->
       <div class="swiper-button-prev text-white"></div>
       <div class="swiper-button-next text-white"></div>
       <div class="swiper-pagination !bottom-4"></div>
+
+      <!-- Dark Overlay -->
       <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
     </div>
   </section>
@@ -122,36 +160,41 @@
   <section class="bg-white py-16 px-6 md:px-20 text-gray-800">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl font-bold text-[#F8153E] mb-6 text-center">About Our Celebrations</h2>
+
       <p class="text-lg mb-4">
         Welcome to <span class="text-[#F8153E] font-semibold">Jain Events and Caterers</span> – Your Premier Event
-        Planners and
-        Vegetarian Caterers in Jaipur.
-        Every celebration is a sacred reflection of love, culture, and tradition. Based in Jaipur, we specialize in
-        wedding planning, destination events, and 100% pure vegetarian catering.
+        Planners and Vegetarian Caterers in Jaipur. Every celebration is a sacred reflection of love, culture, and
+        tradition. With over a decade of experience, we are proud to be recognized among the best catering services in
+        Jaipur, specializing in 100% pure vegetarian cuisine and complete event management. With over a decade of
+        experience, we have successfully managed events ranging from small family gatherings to lavish weddings and
+        high-profile corporate events.
       </p>
 
       <p class="text-lg mb-4">
-        With 10+ years of experience, we’ve curated unforgettable experiences across Rajasthan including:
+        We’ve curated unforgettable experiences across Rajasthan, from small family gatherings to lavish weddings and
+        high-profile corporate events, including:
       </p>
       <ul class="list-disc list-inside text-lg text-gray-700 mb-4">
-        <li>Weddings</li>
-        <li>Destination weddings in Jaipur and Rajasthan</li>
+        <li>Weddings & destination weddings</li>
         <li>Engagements, birthdays & anniversaries</li>
         <li>Corporate and cultural events</li>
       </ul>
+
       <p class="text-lg mb-4">
-        Our catering is 100% pure-veg, ensuring authenticity and spiritual sanctity. From Rajasthani to South Indian to
-        Continental, our chefs serve it all with devotion.
+        Food is the soul of every occasion, and we make sure it becomes the highlight of your event. From authentic
+        Rajasthani flavors to innovative fusion dishes, our menu is carefully curated to suit your guests’ tastes while
+        ensuring purity, hygiene, and presentation.
       </p>
+
       <p class="text-lg">
-        Whether it’s a palace wedding, a spiritual gathering, or a festive family celebration — we manage venue, decor,
-        sound, lighting, and food — all tailored to your needs.
+        Whether it’s a palace wedding, a spiritual gathering, or a festive family celebration — we manage venue, décor,
+        theme setups, sound, lighting, hospitality, and food — all tailored to your needs.
       </p>
     </div>
   </section>
 
   <!-- Why Choose Us Section -->
-  <section class="bg-gray-100 py-16 px-6 md:px-20 text-gray-800">
+  <section class="bg-white py-16 px-6 md:px-20 text-gray-800">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl font-bold text-[#F8153E] mb-8 text-center">Why Choose Jain Events and Caterers?</h2>
       <div class="grid md:grid-cols-2 gap-8">
@@ -194,22 +237,65 @@
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="bg-white py-20 px-6 md:px-20">
+  <section id="services" class="bg-white py-16 px-6 md:px-20">
     <div class="max-w-6xl mx-auto text-center">
       <h2 class="text-4xl font-bold text-[#F8153E] mb-6">Our Services</h2>
-      <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto">
-        At <span class="font-semibold text-[#F8153E]">Jain Events and Caterers</span>, we offer a wide range of premium
-        services tailored to meet all your event needs with
-        elegance and professionalism. <br class="hidden md:block" />
-        We’re also happy to arrange customized services according to your specific requirements and event type.
-      </p>
+      <div class="text-left space-y-8 max-w-6xl mx-auto">
+        <p class="text-lg text-gray-800 mb-12 max-w-6xl mx-auto text-left space-y-8">
+          At <span class="font-semibold text-[#F8153E]">Jain Events and Caterers</span>, we offer a wide range of
+          premium services tailored to meet all your event needs with elegance and professionalism.
+          We are not just caterers, we are creators of memorable experiences. Our expertise covers a wide range of
+        </p>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-[#F8153E] mb-2">Wedding Catering in Jaipur</h3>
+          <p class="text-lg text-gray-700">
+            Weddings are once-in-a-lifetime moments, and we make them grand with lavish spreads, live food counters, and
+            beautifully themed setups. From pre-wedding functions like Haldi and Mehendi to the wedding reception, we
+            take care of everything with elegance and perfection.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-[#F8153E] mb-2">Birthday Party Caterers in Jaipur</h3>
+          <p class="text-lg text-gray-700">
+            Whether it’s a kids’ birthday with cartoon-themed snacks or a milestone celebration with a mocktail bar and
+            custom-designed cakes, we add a special touch to make birthdays truly joyful.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-[#F8153E] mb-2">Anniversary Celebrations</h3>
+          <p class="text-lg text-gray-700">
+            Love deserves to be celebrated in style. Our anniversary catering includes romantic décor, heart-shaped
+            desserts, and carefully designed menus to make the day memorable for couples and their guests.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-[#F8153E] mb-2">Corporate Catering in Jaipur</h3>
+          <p class="text-lg text-gray-700">
+            For board meetings, product launches, or large conferences, we provide professional catering services that
+            reflect your company’s hospitality standards. We ensure punctuality, hygiene, and customized menus suitable
+            for formal gatherings.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-[#F8153E] mb-2">Cultural & Social Events</h3>
+          <p class="text-lg text-gray-700 mb-8">
+            From community gatherings to festive celebrations, we design menus and event setups that capture the true
+            essence of tradition.
+          </p>
+        </div>
+      </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
         <!-- Anniversary Celebrations -->
         <a href="./anniversary.html">
           <div class="h-full">
             <div
-              class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
+              class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
               <img src="./img/Anniversary.jpg" alt="25th wedding anniversary organizers Jaipur"
                 class="w-full h-48 object-cover">
               <div class="p-6 flex-1 flex flex-col justify-between">
@@ -223,7 +309,7 @@
         <!-- Birthday Parties -->
         <a href="birthday.html" class="h-full">
           <div
-            class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
+            class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
             <img src="./img/Older-Kid-Birthday-Party.jpg" alt="birthday catering services Jaipur"
               class="w-full h-48 object-cover">
             <div class="p-6 flex-1 flex flex-col justify-between">
@@ -237,7 +323,7 @@
         <a href="./corporate.html">
           <div class="h-full">
             <div
-              class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
+              class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
               <img src="./img/corporate-events.jpg" alt="Corporate and Private Events in Jaipur "
                 class="w-full h-48 object-cover">
               <div class="p-6 flex-1 flex flex-col justify-between">
@@ -253,7 +339,7 @@
         <a href="./wedding.html">
           <div class="h-full">
             <div
-              class="group cursor-pointer bg-gray-100 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
+              class="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl flex flex-col h-full">
               <img src="./img/wedding.jpg" alt="Wedding Catering Services in Jaipur" class="w-full h-48 object-cover">
               <div class="p-6 flex-1 flex flex-col justify-between">
                 <h3 class="text-xl font-semibold text-[#F8153E] mb-2">Wedding Catering</h3>
@@ -276,7 +362,7 @@
 
   <!-- About Section -->
   <section id="about" class="bg-white py-16 px-4 md:px-20">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center gap-12">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row-reverse items-center gap-12">
       <div class="w-full md:w-1/2 order-2 md:order-1">
         <img src="./img/istockphoto-637765812-612x612.jpg" alt="About Jain Events"
           class="rounded-2xl shadow-xl w-full max-h-[500px] object-cover">
@@ -315,10 +401,9 @@
     <div class="elfsight-app-11bcfca5-bcfa-4f04-8a96-077952e16f40" data-elfsight-app-lazy></div>
   </section>
 
-
   <!-- Contact Section -->
-  <section id="contact" class="bg-gray-100 py-20 px-6 md:px-20">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+  <section id="contact" class="bg-white py-20 px-6 md:px-20">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <!-- Text Column -->
       <div class="text-center md:text-left">
         <h2 class="text-4xl font-bold text-[#F8153E] mb-4">Contact Us</h2>
@@ -351,7 +436,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/917230888688" target="_blank"
