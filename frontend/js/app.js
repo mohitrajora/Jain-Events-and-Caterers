@@ -42,31 +42,31 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Stat counter animation
-  const counters = document.querySelectorAll('[data-target]');
-  let animated = false;
+  // const counters = document.querySelectorAll('[data-target]');
+  // let animated = false;
 
-  function animateCounters() {
-    const duration = 2000;
-    counters.forEach(counter => {
-      const target = +counter.getAttribute('data-target');
-      const startTime = performance.now();
+  // function animateCounters() {
+  //   const duration = 2000;
+  //   counters.forEach(counter => {
+  //     const target = +counter.getAttribute('data-target');
+  //     const startTime = performance.now();
 
-      const update = (time) => {
-        const elapsed = time - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const value = Math.floor(progress * target);
-        counter.innerText = `${value}+`;
+  //     const update = (time) => {
+  //       const elapsed = time - startTime;
+  //       const progress = Math.min(elapsed / duration, 1);
+  //       const value = Math.floor(progress * target);
+  //       counter.innerText = `${value}+`;
 
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          counter.innerText = `${target}+`;
-        }
-      };
+  //       if (progress < 1) {
+  //         requestAnimationFrame(update);
+  //       } else {
+  //         counter.innerText = `${target}+`;
+  //       }
+  //     };
 
-      requestAnimationFrame(update);
-    });
-  }
+  //     requestAnimationFrame(update);
+  //   });
+  // }
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
