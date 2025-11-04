@@ -182,7 +182,7 @@
             const blogGrid = document.getElementById("blogGrid");
 
             try {
-                const res = await fetch("http://localhost:5000/blogs"); // Your GET /blogs API
+                const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
                 const blogs = await res.json();
 
                 // Clear existing hardcoded blogs
