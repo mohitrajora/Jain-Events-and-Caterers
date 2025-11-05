@@ -88,15 +88,16 @@
             </div>
 
             <!-- Blog Cards Grid -->
-            <div class="grid md:grid-cols-3 gap-8" id="blogGrid">
+            <div class="grid md:grid-cols-3 gap-8 relative min-h-[200px]" id="blogGrid">
                 <!-- Loader -->
-                <div id="loader" class="text-center py-6 text-gray-600 hidden">
-                    <svg class="animate-spin h-6 w-6 inline text-[var(--brand-color)]" viewBox="0 0 24 24">
+                <div id="loader"
+                    class="absolute inset-0 flex-col items-center justify-center text-gray-600 bg-white/80 backdrop-blur-sm z-10 hidden">
+                    <svg class="animate-spin h-10 w-10 text-[var(--brand-color)] mb-3" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
                         </circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                     </svg>
-                    <p>Loading blogs...</p>
+                    <p class="text-gray-700 font-medium">Loading blogs...</p>
                 </div>
             </div>
         </div>
