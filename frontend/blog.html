@@ -124,7 +124,8 @@
                 const blogs = await res.json();
 
                 // Clear loading text
-                blogGrid.innerHTML = "";
+                // blogGrid.innerHTML = "";
+                loader.classList.add("hidden");
 
                 blogs.forEach(blog => {
                     const blogCard = `
