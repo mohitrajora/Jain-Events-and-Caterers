@@ -88,10 +88,11 @@
             </div>
 
             <!-- Blog Cards Grid -->
-            <div class="grid md:grid-cols-3 gap-8 relative min-h-[200px]" id="blogGrid">
+            <!-- Blog Grid -->
+            <div class="relative min-h-[300px]" id="blogGridWrapper">
                 <!-- Loader -->
                 <div id="loader"
-                    class="absolute inset-0 flex-col items-center justify-center text-gray-600 bg-white/80 backdrop-blur-sm z-10 hidden">
+                    class="absolute inset-0 flex flex-col items-center justify-center text-gray-600 bg-white/80 backdrop-blur-sm z-10 hidden">
                     <svg class="animate-spin h-10 w-10 text-[var(--brand-color)] mb-3" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
                         </circle>
@@ -99,6 +100,8 @@
                     </svg>
                     <p class="text-gray-700 font-medium">Loading blogs...</p>
                 </div>
+                <!-- Actual Grid -->
+                <div class="grid md:grid-cols-3 gap-8" id="blogGrid"></div>
             </div>
         </div>
     </section>
