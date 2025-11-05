@@ -118,6 +118,8 @@
         document.addEventListener("DOMContentLoaded", async () => {
             const blogGrid = document.getElementById("blogGrid");
             const searchInput = document.getElementById("blogSearch");
+            const loader = document.getElementById("loader");
+            loader.classList.remove("hidden");
 
             try {
                 const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
