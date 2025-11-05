@@ -173,9 +173,16 @@
             Swal.fire({
                 icon: "warning",
                 title: "Access Denied",
-                text: "Please login to access Admin Dashboard"
-            }).then(() => {
-                window.location.href = "/login.html";
+                text: "Please login to access Admin Dashboard",
+                allowOutsideClick: false,     // Disable clicking outside
+                allowEscapeKey: false,        // Disable Esc key
+                allowEnterKey: false,         // Disable Enter key
+                background: "#fff",           // Popup background color (optional)
+                backdrop: `
+            rgba(0, 0, 0, 0.9)         /* Darken the background */
+            left top
+            no-repeat
+        `
             });
         }
 
