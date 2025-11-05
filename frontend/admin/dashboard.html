@@ -179,10 +179,12 @@
                 allowEnterKey: false,         // Disable Enter key
                 background: "#fff",           // Popup background color (optional)
                 backdrop: `
-            rgba(0, 0, 0, 0.9)         /* Darken the background */
+            rgba(0, 0, 0, 0.9)
             left top
             no-repeat
         `
+            }).then(() => {
+                window.location.href = "/login.html";
             });
         }
 
@@ -195,7 +197,7 @@
                 timer: 1200,
                 showConfirmButton: false
             }).then(() => {
-                window.location.href = "/login.html";
+                window.location.href = "./login.html";
             });
         }
 
