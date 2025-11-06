@@ -292,16 +292,49 @@
                 const blog = await res.json();
                 if (!res.ok) throw new Error(blog.error || "Blog not found!");
 
-                // ✅ Popup
                 const { value: formValues } = await Swal.fire({
-                    title: "✏️ Edit Blog",
+                    title: "Edit Blog",
                     html: `
-                <input id="swal-title" class="swal2-input" value="${blog.title}">
-                <input id="swal-category" class="swal2-input" value="${blog.category}">
-                <textarea id="swal-content" class="swal2-textarea">${blog.content}</textarea>
-            `,
+                        <div class="text-left space-y-4">
+
+                            <div>
+                                <label class="block brand-text font-medium mb-1">Blog Title</label>
+                                <input id="swal-title"
+                                class="w-full border rounded-lg px-4 py-2 brand-focus"
+                                value="${blog.title}">
+                            </div>
+
+                            <div>
+                                <label class="block brand-text font-medium mb-1">Category</label>
+                                <select id="swal-category"
+                                        class="w-full border rounded-lg px-4 py-2 brand-focus">
+                                    <option value="">Select category</option>
+                                    <option value="wedding"  ${blog.category === "wedding" ? "selected" : ""}>Wedding</option>
+                                    <option value="birthday" ${blog.category === "birthday" ? "selected" : ""}>Birthday</option>
+                                    <option value="corporate" ${blog.category === "corporate" ? "selected" : ""}>Corporate</option>
+                                    <option value="festival" ${blog.category === "festival" ? "selected" : ""}>Festival</option>
+                                    <option value="other" ${blog.category === "other" ? "selected" : ""}>Other</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block brand-text font-medium mb-1">Content</label>
+                                <textarea id="swal-content" rows="6"
+                                        class="w-full border rounded-lg px-4 py-2 brand-focus"
+                                >${blog.content}</textarea>
+                            </div>
+
+                        </div>
+                        `,
                     showCancelButton: true,
                     confirmButtonText: "Save",
+                    width: "650px",
+                    customClass: {
+                        popup: "rounded-xl shadow-xl",
+                        confirmButton: "btn-primary px-6 py-2 rounded-lg shadow hover:shadow-lg",
+                        cancelButton: "bg-gray-300 px-6 py-2 rounded-lg hover:bg-gray-400 transition ml-2"
+                    },
+                    focusConfirm: false,
                     preConfirm: () => {
                         const title = document.getElementById("swal-title").value.trim();
                         const category = document.getElementById("swal-category").value.trim();
