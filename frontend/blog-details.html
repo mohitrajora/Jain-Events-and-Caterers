@@ -82,7 +82,7 @@
                 return;
             }
 
-            // ✨ Function: Automatically convert URLs in text to clickable links with short labels
+            // ✨ 1. Function: Automatically convert URLs in text to clickable links with short labels
             function linkify(text) {
                 const urlRegex = /(https?:\/\/[^\s]+)/g;
                 return text.replace(urlRegex, (url) => {
@@ -99,18 +99,31 @@
                 });
             }
 
+            // ✨ 2. Function: Convert Markdown (**bold**, *italic*, __underline__) to HTML
+            function formatText(text) {
+                // Bold **text**
+                text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+                // Italic *text*
+                text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
+                // Underline __text__
+                text = text.replace(/__(.*?)__/g, "<u>$1</u>");
+                return text;
+            }
+
             try {
                 const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${blogId}`);
                 if (!res.ok) throw new Error("Blog not found");
 
                 const blog = await res.json();
 
-                // Fill blog details
+                // 🧠 3. Apply Markdown + Linkify
+                const formattedText = formatText(blog.content || "No content available.");
+                const finalText = linkify(formattedText);
+
+                // Display blog details
                 blogTitle.textContent = blog.title || "Untitled Blog";
                 blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
-
-                // ✅ Convert plain URLs into clickable themed links
-                blogBody.innerHTML = linkify(blog.content || "No content available.");
+                blogBody.innerHTML = finalText;
 
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
@@ -121,7 +134,6 @@
             }
         });
     </script>
-
 
     <script src="./js/include.js"></script>
 </body>
