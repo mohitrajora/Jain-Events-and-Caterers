@@ -82,7 +82,7 @@
                 return;
             }
 
-            // ✨ 1. Function: Automatically convert URLs in text to clickable links with short labels
+            // ✨ 1. Convert URLs into clickable themed links
             function linkify(text) {
                 const urlRegex = /(https?:\/\/[^\s]+)/g;
                 return text.replace(urlRegex, (url) => {
@@ -99,14 +99,28 @@
                 });
             }
 
-            // ✨ 2. Function: Convert Markdown (**bold**, *italic*, __underline__) to HTML
+            // ✨ 2. Convert Markdown formatting to HTML (bold, italic, underline, lists)
             function formatText(text) {
+                // Handle special characters safely first
+                text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
                 // Bold **text**
                 text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
                 // Italic *text*
                 text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
                 // Underline __text__
                 text = text.replace(/__(.*?)__/g, "<u>$1</u>");
+
+                // Bullet lists (- item)
+                text = text.replace(/(?:^|\n)- (.*?)(?=\n|$)/g, "<li>$1</li>");
+                text = text.replace(/(<li>.*<\/li>)/gs, "<ul class='list-disc ml-6 my-2'>$1</ul>");
+
+                // Numbered lists (1. item)
+                text = text.replace(/(?:^|\n)\d+\.\s(.*?)(?=\n|$)/g, "<li>$1</li>");
+                text = text.replace(/(<li>.*<\/li>)/gs, "<ol class='list-decimal ml-6 my-2'>$1</ol>");
+
+                // Line breaks
+                text = text.replace(/\n/g, "<br>");
                 return text;
             }
 
