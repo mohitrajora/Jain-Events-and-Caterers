@@ -82,15 +82,35 @@
                 return;
             }
 
+            // ✨ Function: Automatically convert URLs in text to clickable links with short labels
+            function linkify(text) {
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                return text.replace(urlRegex, (url) => {
+                    let label = "Visit Link"; // default label
+
+                    if (url.includes("wa.me")) label = "Chat on WhatsApp 💬";
+                    else if (url.includes("facebook.com")) label = "Visit our Facebook Page";
+                    else if (url.includes("instagram.com")) label = "Check on Instagram 📸";
+                    else if (url.includes("youtube.com")) label = "Watch on YouTube ▶️";
+                    else if (url.includes("netlify.app/services")) label = "Visit Services Page 🔗";
+                    else if (url.includes("netlify.app")) label = "Visit Jain Events Website 🌐";
+
+                    return `<a href="${url}" target="_blank" class="text-[#F8153E] hover:text-[#c40f32] font-semibold underline">${label}</a>`;
+                });
+            }
+
             try {
                 const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${blogId}`);
                 if (!res.ok) throw new Error("Blog not found");
+
                 const blog = await res.json();
 
                 // Fill blog details
                 blogTitle.textContent = blog.title || "Untitled Blog";
                 blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
-                blogBody.textContent = blog.content || "No content available.";
+
+                // ✅ Convert plain URLs into clickable themed links
+                blogBody.innerHTML = linkify(blog.content || "No content available.");
 
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
@@ -101,6 +121,7 @@
             }
         });
     </script>
+
 
     <script src="./js/include.js"></script>
 </body>
