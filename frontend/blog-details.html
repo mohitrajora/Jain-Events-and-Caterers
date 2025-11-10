@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Details | Jain Events and Caterers</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
+
+    <!-- Tailwind & Fonts -->
+    <link href="src/css/output.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black font-poppins">
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Padding for fixed navbar -->
+    <div class="h-20 md:h-24"></div>
+
+    <!-- Blog Details Section -->
+    <section class="bg-white py-16 px-6 md:px-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Loader -->
+            <div id="loader" class="text-center py-20 text-gray-600">
+                <svg class="animate-spin h-10 w-10 text-[#F8153E] mx-auto mb-4" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+                <p class="font-medium">Loading blog details...</p>
+            </div>
+
+            <!-- Blog Content -->
+            <article id="blogContent" class="hidden bg-white border border-gray-200 rounded-2xl shadow-lg p-6 md:p-10">
+                <h1 id="blogTitle" class="text-3xl md:text-4xl font-bold text-[#F8153E] mb-4"></h1>
+                <p id="blogMeta" class="text-gray-500 text-sm mb-6"></p>
+                <div id="blogBody" class="text-gray-800 leading-relaxed whitespace-pre-line text-lg"></div>
+
+                <div class="mt-10 text-center">
+                    <a href="blog.html" class="text-[#F8153E] hover:underline font-semibold">← Back to Blogs</a>
+                </div>
+            </article>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="hidden text-center text-red-600 font-medium mt-10">
+                Blog not found.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center p-4 text-sm text-white bg-[#F8153E]">
+        © 2025 Jain Events and Caterers. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const loader = document.getElementById("loader");
+            const blogContent = document.getElementById("blogContent");
+            const blogTitle = document.getElementById("blogTitle");
+            const blogMeta = document.getElementById("blogMeta");
+            const blogBody = document.getElementById("blogBody");
+            const errorMessage = document.getElementById("errorMessage");
+
+            const params = new URLSearchParams(window.location.search);
+            const blogId = params.get("id");
+
+            if (!blogId) {
+                loader.classList.add("hidden");
+                errorMessage.textContent = "Invalid blog link.";
+                errorMessage.classList.remove("hidden");
+                return;
+            }
+
+            try {
+                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${blogId}`);
+                if (!res.ok) throw new Error("Blog not found");
+                const blog = await res.json();
+
+                // Fill blog details
+                blogTitle.textContent = blog.title || "Untitled Blog";
+                blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
+                blogBody.textContent = blog.content || "No content available.";
+
+                loader.classList.add("hidden");
+                blogContent.classList.remove("hidden");
+            } catch (error) {
+                console.error("Error loading blog:", error);
+                loader.classList.add("hidden");
+                errorMessage.classList.remove("hidden");
+            }
+        });
+    </script>
+
+    <script src="./js/include.js"></script>
+</body>
+
+</html>
