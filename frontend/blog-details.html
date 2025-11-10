@@ -139,6 +139,34 @@
                 blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
                 blogBody.innerHTML = finalText;
 
+                // ✨ Update dynamic SEO tags
+                document.title = `${blog.title} | Jain Events & Caterers`;
+
+                // Meta description (first 150 characters of content)
+                let shortDesc = blog.content ? blog.content.replace(/[#*_]/g, '').slice(0, 150) + "..." : "Read this post from Jain Events & Caterers.";
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (!metaDesc) {
+                    metaDesc = document.createElement("meta");
+                    metaDesc.setAttribute("name", "description");
+                    document.head.appendChild(metaDesc);
+                }
+                metaDesc.setAttribute("content", shortDesc);
+
+                // OG tags for sharing
+                function setOg(property, content) {
+                    let tag = document.querySelector(`meta[property="${property}"]`);
+                    if (!tag) {
+                        tag = document.createElement("meta");
+                        tag.setAttribute("property", property);
+                        document.head.appendChild(tag);
+                    }
+                    tag.setAttribute("content", content);
+                }
+
+                setOg("og:title", blog.title || "Blog Post - Jain Events & Caterers");
+                setOg("og:description", shortDesc);
+                setOg("og:url", window.location.href);
+
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
             } catch (error) {
