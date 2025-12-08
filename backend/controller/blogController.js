@@ -5,37 +5,38 @@ const blogCollection = db.collection("blogs");
 
 // Add a new blog
 export const addBlog = async (req, res) => {
-    try {
-        const { title, category, content } = req.body;
+  try {
+    const { title, category, content, metaTitle, metaDescription } = req.body;
 
-        if (!title || !category || !content) {
-            return res.status(400).json({ error: "All fields are required" });
-        }
-
-        // Create clean slug from title
-        const slug = title
-            .toLowerCase()
-            .trim()
-            .replace(/[^\w\s-]/g, "") // remove special chars
-            .replace(/\s+/g, "-")     // spaces to hyphens
-            .replace(/-+/g, "-")      // collapse multiple hyphens
-            .replace(/^-+|-+$/g, ""); // remove leading/trailing hyphens
-
-        const newBlog = {
-            title,
-            category,
-            content,
-            slug,
-            createdAt: new Date().toISOString(),
-        };
-
-        const docRef = await blogCollection.add(newBlog);
-        res.status(201).json({ id: docRef.id, ...newBlog });
-
-    } catch (error) {
-        console.error("Error adding blog:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+    if (!title || !category || !content) {
+      return res.status(400).json({ error: "All fields are required" });
     }
+
+    // create slug safely (trim leading/trailing hyphens)
+    const slug = title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const newBlog = {
+      title,
+      category,
+      content,
+      slug,
+      metaTitle: metaTitle || title, // default to title if not provided
+      metaDescription: metaDescription || (content ? content.slice(0, 150) : ""),
+      createdAt: new Date().toISOString(),
+    };
+
+    const docRef = await blogCollection.add(newBlog);
+    res.status(201).json({ id: docRef.id, ...newBlog });
+  } catch (error) {
+    console.error("Error adding blog:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 // Get a single blog
