@@ -25,22 +25,30 @@
 
     <script>
         (function () {
-            const path = window.location.pathname;
+            const pathParts = window.location.pathname.split("/");
+            let slugWithHtml = pathParts[pathParts.length - 1];
 
-            // Example: /blog/pure-veg-catering-jaipur
-            const match = path.match(/\/blog\/([^\/]+)/);
+            // Remove .html if present
+            let slug = slugWithHtml.replace(".html", "");
 
-            if (match && match[1]) {
-                const slug = match[1];
-                const canonical = `https://jain-events-and-caterers.netlify.app/blog/${slug}`;
-                document.getElementById("canonical-url").setAttribute("href", canonical);
-            } else {
-                // fallback (blog listing)
-                document.getElementById("canonical-url").setAttribute(
-                    "href",
-                    "https://jain-events-and-caterers.netlify.app/blog"
-                );
+            // If still empty or root, fallback to blog listing
+            if (!slug || slug === "blog-details") {
+                document
+                    .getElementById("canonical-url")
+                    .setAttribute(
+                        "href",
+                        "https://jain-events-and-caterers.netlify.app/blog"
+                    );
+                return;
             }
+
+            // Set canonical
+            document
+                .getElementById("canonical-url")
+                .setAttribute(
+                    "href",
+                    `https://jain-events-and-caterers.netlify.app/blog/${slug}`
+                );
         })();
     </script>
 
