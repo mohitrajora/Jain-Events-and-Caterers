@@ -1,1 +1,15 @@
+# SEO CLEAN URL REDIRECTS (301)
+
+/about.html        /about        301
+/services.html     /services     301
+/menu.html         /menu         301
+/wedding.html      /wedding      301
+/birthday.html     /birthday     301
+/anniversary.html  /anniversary  301
+/corporate.html    /corporate    301
+/blog.html         /blog         301
+/contact.html      /contact      301
+
+# BLOG ROUTING
+
 /blog/*   /blog/index.html   200
