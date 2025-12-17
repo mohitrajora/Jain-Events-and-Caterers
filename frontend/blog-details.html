@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog Details | Jain Events and Caterers</title>
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="" id="canonical-url" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
 
@@ -19,6 +22,28 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
+
+    <script>
+        (function () {
+            const path = window.location.pathname;
+
+            // Example: /blog/pure-veg-catering-jaipur
+            const match = path.match(/\/blog\/([^\/]+)/);
+
+            if (match && match[1]) {
+                const slug = match[1];
+                const canonical = `https://jain-events-and-caterers.netlify.app/blog/${slug}`;
+                document.getElementById("canonical-url").setAttribute("href", canonical);
+            } else {
+                // fallback (blog listing)
+                document.getElementById("canonical-url").setAttribute(
+                    "href",
+                    "https://jain-events-and-caterers.netlify.app/blog"
+                );
+            }
+        })();
+    </script>
+
 </head>
 
 <body class="bg-white text-black font-poppins">
