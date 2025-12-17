@@ -1,0 +1,50 @@
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/services.html"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/menu.html"
+  to = "/menu"
+  status = 301
+
+[[redirects]]
+  from = "/wedding.html"
+  to = "/wedding"
+  status = 301
+
+[[redirects]]
+  from = "/birthday.html"
+  to = "/birthday"
+  status = 301
+
+[[redirects]]
+  from = "/anniversary.html"
+  to = "/anniversary"
+  status = 301
+
+[[redirects]]
+  from = "/corporate.html"
+  to = "/corporate"
+  status = 301
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+
+# Blog routing (keep behavior)
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/index.html"
+  status = 200
