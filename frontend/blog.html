@@ -126,7 +126,7 @@
         © 2025 Jain Events and Caterers. All rights reserved.
     </footer>
 
-    <!-- ✅ Updated Script -->
+    <!--  Updated Script -->
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
             const blogGrid = document.getElementById("blogGrid");
@@ -134,7 +134,7 @@
             const loader = document.getElementById("loader");
             loader.classList.remove("hidden");
 
-            // 🔹 Function to convert markdown to HTML for previews
+            //  Function to convert markdown to HTML for previews
             function formatPreview(text) {
                 if (!text) return "";
                 return text
@@ -164,7 +164,7 @@
                     blogGrid.innerHTML += blogCard;
                 });
 
-                // 🔍 Search filter
+                //  Search filter
                 searchInput.addEventListener("input", (e) => {
                     const query = e.target.value.toLowerCase();
                     document.querySelectorAll(".blog-card").forEach(card => {

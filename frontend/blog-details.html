@@ -107,7 +107,7 @@
                 return;
             }
 
-            // ✨ 1. Convert URLs into clickable themed links
+            //  1. Convert URLs into clickable themed links
             function linkify(text) {
                 const urlRegex = /(https?:\/\/[^\s]+)/g;
                 return text.replace(urlRegex, (url) => {
@@ -124,7 +124,7 @@
                 });
             }
 
-            // ✨ 2. Convert Markdown formatting to HTML (bold, italic, underline, lists)
+            // 2. Convert Markdown formatting to HTML (bold, italic, underline, lists)
             function formatText(text) {
                 // Handle special characters safely first
                 text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -155,7 +155,7 @@
 
                 const blog = await res.json();
 
-                // 🧠 3. Apply Markdown + Linkify
+                //  3. Apply Markdown + Linkify
                 const formattedText = formatText(blog.content || "No content available.");
                 const finalText = linkify(formattedText);
 
@@ -164,7 +164,7 @@
                 blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
                 blogBody.innerHTML = finalText;
 
-                // ✨ Update dynamic SEO tags
+                // Update dynamic SEO tags
                 document.title = `${blog.title} | Jain Events & Caterers`;
 
                 // Meta description (first 150 characters of content)
