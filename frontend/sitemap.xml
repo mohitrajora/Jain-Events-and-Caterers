@@ -9,55 +9,55 @@
 
   <!-- About -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/about.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/about</loc>
     <priority>0.80</priority>
   </url>
 
-  <!-- Anniversary -->
+  <!-- Services -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/anniversary.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/services</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Menu -->
+  <url>
+    <loc>https://jain-events-and-caterers.netlify.app/menu</loc>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Wedding -->
+  <url>
+    <loc>https://jain-events-and-caterers.netlify.app/wedding</loc>
     <priority>0.80</priority>
   </url>
 
   <!-- Birthday -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/birthday.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/birthday</loc>
     <priority>0.80</priority>
   </url>
 
-  <!-- Blog -->
+  <!-- Anniversary -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/blog.html</loc>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Contact -->
-  <url>
-    <loc>https://jain-events-and-caterers.netlify.app/contact.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/anniversary</loc>
     <priority>0.80</priority>
   </url>
 
   <!-- Corporate -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/corporate.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/corporate</loc>
     <priority>0.80</priority>
   </url>
 
-  <!-- Menu -->
+  <!-- Blog Listing -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/menu.html</loc>
-    <priority>0.75</priority>
+    <loc>https://jain-events-and-caterers.netlify.app/blog</loc>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Services -->
+  <!-- Contact -->
   <url>
-    <loc>https://jain-events-and-caterers.netlify.app/services.html</loc>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Wedding -->
-  <url>
-    <loc>https://jain-events-and-caterers.netlify.app/wedding.html</loc>
+    <loc>https://jain-events-and-caterers.netlify.app/contact</loc>
     <priority>0.80</priority>
   </url>
 

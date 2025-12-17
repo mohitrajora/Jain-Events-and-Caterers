@@ -84,7 +84,7 @@
                 return;
             }
 
-            // ✨ Convert URLs into clickable themed links
+            //  Convert URLs into clickable themed links
             function linkify(text) {
                 const urlRegex = /(https?:\/\/[^\s]+)/g;
                 return text.replace(urlRegex, (url) => {
@@ -99,7 +99,7 @@
                 });
             }
 
-            // ✨ Convert Markdown formatting to HTML
+            // Convert Markdown formatting to HTML
             function formatText(text) {
                 text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
@@ -114,7 +114,7 @@
             }
 
             try {
-                // ✅ Fetch by slug (new API route)
+                //  Fetch by slug (new API route)
                 const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/slug/${slug}`);
                 if (!res.ok) throw new Error("Blog not found");
 
@@ -128,7 +128,7 @@
                 blogMeta.textContent = `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
                 blogBody.innerHTML = finalText;
 
-                // ✅ Dynamic SEO
+                // Dynamic SEO
                 document.title = `${blog.title} | Jain Events & Caterers`;
                 let shortDesc = blog.content ? blog.content.replace(/[#*_]/g, "").slice(0, 150) + "..." : "Read this post from Jain Events & Caterers.";
                 let metaDesc = document.querySelector('meta[name="description"]');
