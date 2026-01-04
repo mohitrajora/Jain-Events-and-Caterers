@@ -1,3 +1,7 @@
+# Sitemap 
+
+/sitemap.xml  https://backend-jaine-cforrender.onrender.com/blogs/sitemap.xml  301
+
 # BLOG ROUTING
 
 /blog            /blog/index.html        200
