@@ -10,10 +10,10 @@
     <link rel="canonical" href="" id="canonical-url" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="./img/logo.jpg" />
+    <link rel="icon" type="image/jpg" href="/img/logo.jpg" />
 
     <!-- Tailwind & Fonts -->
-    <link href="src/css/output.css" rel="stylesheet" />
+    <link href="/src/css/output.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
@@ -23,38 +23,25 @@
         }
     </style>
 
+    <!-- AUTO CANONICAL -->
     <script>
         (function () {
-            const pathParts = window.location.pathname.split("/");
-            let slugWithHtml = pathParts[pathParts.length - 1];
+            const parts = window.location.pathname.split("/");
+            const slug = parts[2];
 
-            // Remove .html if present
-            let slug = slugWithHtml.replace(".html", "");
-
-            // If still empty or root, fallback to blog listing
-            if (!slug || slug === "blog-details") {
-                document
-                    .getElementById("canonical-url")
-                    .setAttribute(
-                        "href",
-                        "https://jain-events-and-caterers.netlify.app/blog"
-                    );
-                return;
+            if (slug) {
+                document.getElementById("canonical-url").href =
+                    `https://jain-events-and-caterers.netlify.app/blog/${slug}`;
+            } else {
+                document.getElementById("canonical-url").href =
+                    "https://jain-events-and-caterers.netlify.app/blog";
             }
-
-            // Set canonical
-            document
-                .getElementById("canonical-url")
-                .setAttribute(
-                    "href",
-                    `https://jain-events-and-caterers.netlify.app/blog/${slug}`
-                );
         })();
     </script>
-
 </head>
 
 <body class="bg-white text-black font-poppins">
+
     <!-- Navbar -->
     <div id="navbar-container"></div>
 
@@ -64,6 +51,7 @@
     <!-- Blog Details Section -->
     <section class="bg-white py-16 px-6 md:px-12">
         <div class="max-w-4xl mx-auto">
+
             <!-- Loader -->
             <div id="loader" class="text-center py-20 text-gray-600">
                 <svg class="animate-spin h-10 w-10 text-[#F8153E] mx-auto mb-4" viewBox="0 0 24 24">
@@ -75,12 +63,15 @@
 
             <!-- Blog Content -->
             <article id="blogContent" class="hidden bg-white border border-gray-200 rounded-2xl shadow-lg p-6 md:p-10">
+
                 <h1 id="blogTitle" class="text-3xl md:text-4xl font-bold text-[#F8153E] mb-4"></h1>
+
                 <p id="blogMeta" class="text-gray-500 text-sm mb-6"></p>
+
                 <div id="blogBody" class="text-gray-800 leading-relaxed whitespace-pre-line text-lg"></div>
 
                 <div class="mt-10 text-center">
-                    <a href="./blog.html" class="text-[#F8153E] hover:underline font-semibold">← Back to Blogs</a>
+                    <a href="/blog" class="text-[#F8153E] hover:underline font-semibold">← Back to Blogs</a>
                 </div>
             </article>
 
@@ -96,8 +87,10 @@
         © 2025 Jain Events and Caterers. All rights reserved.
     </footer>
 
+    <!-- BLOG LOGIC -->
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
+
             const loader = document.getElementById("loader");
             const blogContent = document.getElementById("blogContent");
             const blogTitle = document.getElementById("blogTitle");
@@ -105,112 +98,80 @@
             const blogBody = document.getElementById("blogBody");
             const errorMessage = document.getElementById("errorMessage");
 
-            const params = new URLSearchParams(window.location.search);
-            const blogId = params.get("id");
+            const parts = window.location.pathname.split("/");
+            const slug = parts[2];
 
-            if (!blogId) {
+            if (!slug) {
                 loader.classList.add("hidden");
-                errorMessage.textContent = "Invalid blog link.";
                 errorMessage.classList.remove("hidden");
                 return;
             }
 
-            //  1. Convert URLs into clickable themed links
             function linkify(text) {
                 const urlRegex = /(https?:\/\/[^\s]+)/g;
                 return text.replace(urlRegex, (url) => {
-                    let label = "Visit Link"; // default label
-
+                    let label = "Visit Link";
                     if (url.includes("wa.me")) label = "Chat on WhatsApp 💬";
                     else if (url.includes("facebook.com")) label = "Visit our Facebook Page";
                     else if (url.includes("instagram.com")) label = "Check on Instagram 📸";
                     else if (url.includes("youtube.com")) label = "Watch on YouTube ▶️";
                     else if (url.includes("netlify.app/services")) label = "Visit Services Page 🔗";
                     else if (url.includes("netlify.app")) label = "Visit Jain Events Website 🌐";
-
-                    return `<a href="${url}" target="_blank" class="text-[#F8153E] hover:text-[#c40f32] font-semibold underline">${label}</a>`;
+                    return `<a href="${url}" target="_blank"
+                        class="text-[#F8153E] hover:text-[#c40f32] font-semibold underline">${label}</a>`;
                 });
             }
 
-            // 2. Convert Markdown formatting to HTML (bold, italic, underline, lists)
             function formatText(text) {
-                // Handle special characters safely first
                 text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-                // Bold **text**
                 text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-                // Italic *text*
                 text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
-                // Underline __text__
                 text = text.replace(/__(.*?)__/g, "<u>$1</u>");
-
-                // Bullet lists (- item)
-                text = text.replace(/(?:^|\n)- (.*?)(?=\n|$)/g, "<li>$1</li>");
-                text = text.replace(/(<li>.*<\/li>)/gs, "<ul class='list-disc ml-6 my-2'>$1</ul>");
-
-                // Numbered lists (1. item)
-                text = text.replace(/(?:^|\n)\d+\.\s(.*?)(?=\n|$)/g, "<li>$1</li>");
-                text = text.replace(/(<li>.*<\/li>)/gs, "<ol class='list-decimal ml-6 my-2'>$1</ol>");
-
-                // Line breaks
                 text = text.replace(/\n/g, "<br>");
                 return text;
             }
 
             try {
-                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${blogId}`);
+                const res = await fetch(
+                    `https://backend-jaine-cforrender.onrender.com/blogs/slug/${slug}`
+                );
                 if (!res.ok) throw new Error("Blog not found");
 
                 const blog = await res.json();
 
-                //  3. Apply Markdown + Linkify
-                const formattedText = formatText(blog.content || "No content available.");
-                const finalText = linkify(formattedText);
+                blogTitle.textContent = blog.title;
+                blogMeta.textContent =
+                    `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
+                blogBody.innerHTML =
+                    linkify(formatText(blog.content || ""));
 
-                // Display blog details
-                blogTitle.textContent = blog.title || "Untitled Blog";
-                blogMeta.textContent = `By ${blog.author || "Admin"} • ${blog.date || ""}`;
-                blogBody.innerHTML = finalText;
+                document.title =
+                    `${blog.title} | Jain Events & Caterers`;
 
-                // Update dynamic SEO tags
-                document.title = `${blog.title} | Jain Events & Caterers`;
-
-                // Meta description (first 150 characters of content)
-                let shortDesc = blog.content ? blog.content.replace(/[#*_]/g, '').slice(0, 150) + "..." : "Read this post from Jain Events & Caterers.";
-                let metaDesc = document.querySelector('meta[name="description"]');
+                let metaDesc =
+                    document.querySelector('meta[name="description"]');
                 if (!metaDesc) {
                     metaDesc = document.createElement("meta");
                     metaDesc.setAttribute("name", "description");
                     document.head.appendChild(metaDesc);
                 }
-                metaDesc.setAttribute("content", shortDesc);
-
-                // OG tags for sharing
-                function setOg(property, content) {
-                    let tag = document.querySelector(`meta[property="${property}"]`);
-                    if (!tag) {
-                        tag = document.createElement("meta");
-                        tag.setAttribute("property", property);
-                        document.head.appendChild(tag);
-                    }
-                    tag.setAttribute("content", content);
-                }
-
-                setOg("og:title", blog.title || "Blog Post - Jain Events & Caterers");
-                setOg("og:description", shortDesc);
-                setOg("og:url", window.location.href);
+                metaDesc.setAttribute(
+                    "content",
+                    blog.content.replace(/[#*_]/g, "").slice(0, 150) + "..."
+                );
 
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
-            } catch (error) {
-                console.error("Error loading blog:", error);
+
+            } catch (err) {
+                console.error(err);
                 loader.classList.add("hidden");
                 errorMessage.classList.remove("hidden");
             }
         });
     </script>
 
-    <script src="./js/include.js"></script>
+    <script src="/js/include.js"></script>
 </body>
 
 </html>
