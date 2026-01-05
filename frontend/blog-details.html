@@ -75,6 +75,15 @@
                 </div>
             </article>
 
+            <!-- Related Blogs -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-bold text-[#F8153E] mb-6 text-center">
+                    Related Blogs
+                </h2>
+
+                <div id="relatedBlogs" class="grid md:grid-cols-3 gap-6"></div>
+            </section>
+
             <!-- Error Message -->
             <div id="errorMessage" class="hidden text-center text-red-600 font-medium mt-10">
                 Blog not found.
@@ -131,6 +140,40 @@
                 return text;
             }
 
+            async function loadRelatedBlogs(slug) {
+                try {
+                    const res = await fetch(
+                        `https://backend-jaine-cforrender.onrender.com/blogs/related/${slug}`
+                    );
+                    const blogs = await res.json();
+
+                    const container = document.getElementById("relatedBlogs");
+
+                    if (!blogs.length) {
+                        container.innerHTML = `<p class="text-gray-500 col-span-full text-center">
+                                                 No related blogs found.
+                                                </p>`;
+                        return;
+                    }
+
+                    container.innerHTML = blogs.map(blog => `
+                        <div class="bg-white border rounded-xl shadow-md hover:shadow-xl transition p-5">
+                            <h3 class="text-lg font-semibold text-[#F8153E] mb-2">
+                                ${blog.title}
+                             </h3>
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+                                ${(blog.content || "").slice(0, 100)}...
+                            </p>
+                            <a href="/blog/${blog.slug}" class="text-[#F8153E] font-medium hover:underline">
+                                Read More →
+                            </a>
+                        </div>
+                    `).join("");
+                } catch (err) {
+                    console.error("Related blogs error:", err);
+                }
+            }
+
             try {
                 const res = await fetch(
                     `https://backend-jaine-cforrender.onrender.com/blogs/slug/${slug}`
@@ -159,7 +202,7 @@
                     "content",
                     blog.content.replace(/[#*_]/g, "").slice(0, 150) + "..."
                 );
-
+                loadRelatedBlogs(slug);
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
 
