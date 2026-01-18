@@ -34,7 +34,6 @@
             display: none;
         }
 
-        /* Skeleton Loader */
         .skeleton {
             height: 16px;
             border-radius: 6px;
@@ -53,7 +52,6 @@
             }
         }
 
-        /* Clickable Buttons */
         .action-btn {
             cursor: pointer;
             transition: all 0.2s ease;
@@ -72,7 +70,6 @@
             background: rgba(248, 21, 62, 0.05);
         }
 
-        /* Pagination */
         .page-btn {
             padding: 6px 12px;
             border-radius: 8px;
@@ -86,7 +83,6 @@
             border-color: var(--brand-color);
         }
 
-        /* Chart height control */
         .chart-box {
             height: 260px;
         }
@@ -129,7 +125,6 @@
     <!-- MAIN -->
     <div class="flex-1 ml-64 p-6 space-y-6">
 
-        <!-- HEADER -->
         <div class="flex justify-between items-center">
             <h1 class="text-xl font-bold text-gray-700">Dashboard Overview</h1>
 
@@ -160,7 +155,6 @@
 
         <!-- CHART -->
         <section class="bg-white p-5 rounded-xl shadow">
-
             <h2 class="font-semibold mb-2 text-gray-700">
                 Blogs Published (Last Months)
             </h2>
@@ -168,7 +162,6 @@
             <div class="chart-box">
                 <canvas id="blogChart"></canvas>
             </div>
-
         </section>
 
         <!-- TABLE -->
@@ -224,15 +217,14 @@
         const rowsPerPage = 5;
         let chartInstance = null;
 
-        /* LOAD BLOGS */
         async function loadBlogs() {
 
             const tbody = document.getElementById("blogTableBody");
 
             tbody.innerHTML = `
-        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
-        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
-      `;
+              <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
+              <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
+            `;
 
             const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
             blogsData = await res.json();
@@ -244,7 +236,6 @@
             renderChart();
         }
 
-        /* TABLE */
         function renderTable() {
 
             const tbody = document.getElementById("blogTableBody");
@@ -255,29 +246,31 @@
 
             blogsData.slice(start, end).forEach(blog => {
 
+                const blogId = blog._id || blog.id;
+
                 tbody.innerHTML += `
-          <tr>
-            <td class="p-4">${blog.title}</td>
-            <td class="p-4">${new Date(blog.createdAt).toLocaleDateString()}</td>
-            <td class="p-4 text-center space-x-2">
+                  <tr>
+                    <td class="p-4">${blog.title}</td>
+                    <td class="p-4">${new Date(blog.createdAt).toLocaleDateString()}</td>
 
-              <button onclick="editBlog('${blog._id}')"
-                class="action-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full">
-                Edit
-              </button>
+                    <td class="p-4 text-center space-x-2">
 
-              <button onclick="deleteBlog('${blog._id}')"
-                class="action-btn bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full">
-                Delete
-              </button>
+                      <button onclick="editBlog('${blogId}')"
+                        class="action-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full">
+                        Edit
+                      </button>
 
-            </td>
-          </tr>
-        `;
+                      <button onclick="deleteBlog('${blogId}')"
+                        class="action-btn bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full">
+                        Delete
+                      </button>
+
+                    </td>
+                  </tr>
+                `;
             });
         }
 
-        /* PAGINATION */
         function renderPagination() {
 
             const pages = Math.ceil(blogsData.length / rowsPerPage);
@@ -301,7 +294,6 @@
             }
         }
 
-        /* DELETE */
         async function deleteBlog(id) {
 
             const confirm = await Swal.fire({
@@ -321,36 +313,36 @@
             loadBlogs();
         }
 
-        /* EDIT BLOG */
+        /* FIXED EDIT */
         async function editBlog(id) {
+
+            if (!id) {
+                Swal.fire("Error", "Invalid blog ID", "error");
+                return;
+            }
 
             try {
 
-                // Fetch fresh blog data from backend
-                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`);
+                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${id}`);
+
+                if (!res.ok) throw new Error();
 
                 const blog = await res.json();
-
-                if (!res.ok || !blog) {
-                    Swal.fire("Error", "Blog not found", "error");
-                    return;
-                }
 
                 const { value: newTitle } = await Swal.fire({
                     title: "Edit Blog Title",
                     input: "text",
-                    inputValue: blog.title,
+                    inputValue: blog.title || "",
                     showCancelButton: true,
                     confirmButtonColor: "#F8153E",
                     inputValidator: (value) => {
-                        if (!value) return "Title cannot be empty";
+                        if (!value) return "Title required";
                     }
                 });
 
                 if (!newTitle) return;
 
-                // Update blog
-                const updateRes = await fetch(
+                await fetch(
                     `https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`,
                     {
                         method: "PUT",
@@ -362,30 +354,25 @@
                     }
                 );
 
-                if (!updateRes.ok) {
-                    Swal.fire("Error", "Update failed", "error");
-                    return;
-                }
-
                 Swal.fire({
                     toast: true,
-                    position: "top-end",
                     icon: "success",
                     title: "Blog updated",
                     timer: 1500,
+                    position: "top-end",
                     showConfirmButton: false
                 });
 
                 loadBlogs();
 
             } catch (err) {
+
                 console.error(err);
-                Swal.fire("Error", "Something went wrong", "error");
+                Swal.fire("Error", "Edit failed", "error");
 
             }
         }
 
-        /* CHART */
         function renderChart() {
 
             const months = {};
