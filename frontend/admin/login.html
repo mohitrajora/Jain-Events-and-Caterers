@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Login | Jain Events and Caterers</title>
 
-    <!-- SEO Protection for Admin -->
+    <!-- SEO Protection -->
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
 
@@ -26,47 +26,210 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        /* Card animation */
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shake animation */
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            50% {
+                transform: translateX(6px);
+            }
+
+            75% {
+                transform: translateX(-6px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 2px solid white;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center px-4">
 
-    <div class="bg-white shadow-lg rounded-xl p-8 max-w-md w-full">
-        <h2 class="text-3xl font-bold text-center text-[#F8153E] mb-6">Admin Login</h2>
+    <!-- Login Card -->
+    <div id="loginCard" class="bg-white/95 backdrop-blur-lg shadow-2xl rounded-2xl p-8 max-w-md w-full fade-in">
 
+        <!-- Title -->
+        <h2 class="text-3xl font-bold text-center text-[#F8153E] mb-2">
+            Admin Login
+        </h2>
+
+        <p class="text-center text-gray-500 text-sm mb-6">
+            Secure access to Jain Events Dashboard
+        </p>
+
+        <!-- Form -->
         <form id="adminLoginForm" class="space-y-5">
+
             <!-- Email -->
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <div class="relative">
+                <label class="text-sm font-medium text-gray-700">Email</label>
+
+                <i class="fa-solid fa-envelope absolute left-3 top-10 text-gray-400"></i>
+
                 <input type="email" id="email" name="email" required
-                    class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F8153E]" />
+                    class="mt-1 w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F8153E] focus:border-[#F8153E] transition" />
             </div>
 
-            <!-- Password with toggle -->
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <div class="relative">
-                    <input type="password" id="password" name="password" required
-                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F8153E]" />
-                    <button type="button" id="togglePassword"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#F8153E] text-lg focus:outline-none">
-                        <i class="fas fa-eye" id="eyeIcon"></i>
-                    </button>
-                </div>
+            <!-- Password -->
+            <div class="relative">
+                <label class="text-sm font-medium text-gray-700">Password</label>
+
+                <i class="fa-solid fa-lock absolute left-3 top-10 text-gray-400"></i>
+
+                <input type="password" id="password" name="password" required
+                    class="mt-1 w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F8153E] focus:border-[#F8153E] transition" />
+
+                <!-- Toggle -->
+                <button type="button" id="togglePassword"
+                    class="absolute right-3 top-9 text-[#F8153E] text-lg hover:scale-110 transition">
+                    <i class="fas fa-eye" id="eyeIcon"></i>
+                </button>
             </div>
 
-            <!-- Error message -->
-            <p id="loginError" class="text-red-600 text-sm mt-2 hidden">Invalid credentials. Please try again.</p>
+            <!-- Remember Me -->
+            <div class="flex items-center gap-2">
+                <input type="checkbox" id="rememberMe" class="accent-[#F8153E] w-4 h-4 cursor-pointer">
+                <label for="rememberMe" class="text-sm text-gray-600 cursor-pointer">
+                    Remember Me
+                </label>
+            </div>
 
-            <!-- Submit -->
-            <button type="submit"
-                class="w-full bg-[#F8153E] text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-200 font-semibold">
-                Login
+            <!-- Error -->
+            <p id="loginError" class="text-red-600 text-sm hidden">
+                Invalid credentials. Please try again.
+            </p>
+
+            <!-- Button -->
+            <button id="loginBtn" type="submit" class="w-full bg-[#F8153E] text-white py-2.5 rounded-lg font-semibold tracking-wide 
+                hover:bg-red-600 hover:shadow-lg hover:-translate-y-[1px]
+                active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+
+                <span id="btnText">Login Securely</span>
+                <div id="btnSpinner" class="spinner hidden"></div>
+
             </button>
+
         </form>
+
+        <p class="text-center text-xs text-gray-400 mt-6">
+            © Jain Events & Caterers Admin Panel
+        </p>
+
     </div>
 
+    <!-- Your Existing Logic File -->
     <script src="/js/admin-login.js"></script>
+
+    <!-- UI Enhancement Script -->
+    <script>
+        const form = document.getElementById("adminLoginForm");
+        const loginBtn = document.getElementById("loginBtn");
+        const spinner = document.getElementById("btnSpinner");
+        const btnText = document.getElementById("btnText");
+        const loginError = document.getElementById("loginError");
+        const card = document.getElementById("loginCard");
+        const rememberMe = document.getElementById("rememberMe");
+        const emailInput = document.getElementById("email");
+
+        /* ---------- Remember Me Load ---------- */
+        window.addEventListener("load", () => {
+            const savedEmail = localStorage.getItem("adminEmail");
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberMe.checked = true;
+            }
+        });
+
+        /* ---------- Form Submit UI ---------- */
+        form.addEventListener("submit", () => {
+
+            // Loading state
+            loginBtn.disabled = true;
+            spinner.classList.remove("hidden");
+            btnText.textContent = "Logging in...";
+
+            // Save email
+            if (rememberMe.checked) {
+                localStorage.setItem("adminEmail", emailInput.value);
+            } else {
+                localStorage.removeItem("adminEmail");
+            }
+
+        });
+
+        /* ---------- Detect Error + Shake ---------- */
+        const observer = new MutationObserver(() => {
+
+            if (!loginError.classList.contains("hidden")) {
+
+                // Stop loading
+                spinner.classList.add("hidden");
+                btnText.textContent = "Login Securely";
+                loginBtn.disabled = false;
+
+                // Shake animation
+                card.classList.add("shake");
+
+                setTimeout(() => {
+                    card.classList.remove("shake");
+                }, 400);
+            }
+
+        });
+
+        observer.observe(loginError, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+    </script>
+
 </body>
 
 </html>
