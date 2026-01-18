@@ -68,7 +68,7 @@
 
                 <p id="blogMeta" class="text-gray-500 text-sm mb-6"></p>
 
-                <!-- IMPORTANT FIX: removed whitespace-pre-line -->
+                <!-- Blog Body -->
                 <div id="blogBody" class="text-gray-800 leading-relaxed text-lg"></div>
 
                 <div class="mt-10 text-center">
@@ -102,6 +102,15 @@
 
     <!-- BLOG LOGIC -->
     <script>
+
+        // SAFE HTML DECODER
+        function decodeHTML(html) {
+            if (!html) return "";
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            return doc.documentElement.textContent;
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
 
             const loader = document.getElementById("loader");
@@ -120,20 +129,21 @@
                 return;
             }
 
+            // RELATED BLOGS
             async function loadRelatedBlogs(slug) {
                 try {
                     const res = await fetch(
                         `https://backend-jaine-cforrender.onrender.com/blogs/related/${slug}`
                     );
-                    const blogs = await res.json();
 
+                    const blogs = await res.json();
                     const container = document.getElementById("relatedBlogs");
 
                     if (!blogs.length) {
                         container.innerHTML = `
-                            <p class="text-gray-500 col-span-full text-center">
-                                No related blogs found.
-                            </p>`;
+                          <p class="text-gray-500 col-span-full text-center">
+                            No related blogs found.
+                          </p>`;
                         return;
                     }
 
@@ -151,12 +161,14 @@
                             </a>
                         </div>
                     `).join("");
+
                 } catch (err) {
                     console.error("Related blogs error:", err);
                 }
             }
 
             try {
+
                 const res = await fetch(
                     `https://backend-jaine-cforrender.onrender.com/blogs/slug/${slug}`
                 );
@@ -170,14 +182,15 @@
                 blogMeta.textContent =
                     `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
 
-                // ✅ MAIN FIX — Render HTML directly
-                blogBody.innerHTML = blog.content || "";
+                // MAIN CONTENT RENDER
+                blogBody.innerHTML = decodeHTML(blog.content || "");
 
+                // PAGE TITLE
                 document.title =
                     `${blog.title} | Jain Events & Caterers`;
 
-                let metaDesc =
-                    document.querySelector('meta[name="description"]');
+                // META DESCRIPTION FIX
+                let metaDesc = document.querySelector('meta[name="description"]');
 
                 if (!metaDesc) {
                     metaDesc = document.createElement("meta");
@@ -185,12 +198,11 @@
                     document.head.appendChild(metaDesc);
                 }
 
-                metaDesc.setAttribute(
-                    "content",
-                    (blog.content || "")
-                        .replace(/<[^>]+>/g, "")
-                        .slice(0, 150) + "..."
-                );
+                const cleanText = decodeHTML(blog.content || "")
+                    .replace(/<[^>]+>/g, "")
+                    .slice(0, 150);
+
+                metaDesc.setAttribute("content", cleanText + "...");
 
                 loadRelatedBlogs(slug);
 
