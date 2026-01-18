@@ -102,17 +102,6 @@
 
     <!-- BLOG LOGIC -->
     <script>
-
-        // SAFE HTML DECODER
-        function decodeHTML(html) {
-            if (!html) return "";
-
-            const textarea = document.createElement("textarea");
-            textarea.innerHTML = html;
-
-            return textarea.value;
-        }
-
         document.addEventListener("DOMContentLoaded", async () => {
 
             const loader = document.getElementById("loader");
@@ -185,7 +174,7 @@
                     `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
 
                 // MAIN CONTENT RENDER
-                blogBody.innerHTML = decodeHTML(blog.content || "");
+                blogBody.innerHTML = blog.content;
 
                 // PAGE TITLE
                 document.title =
