@@ -10,8 +10,11 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta name="googlebot" content="noindex, nofollow" />
 
-    <link rel="icon" type="image/jpg" href="/img/logo.jpg" />
+    <link rel="icon" href="/img/logo.jpg" />
     <link href="/src/css/output.css" rel="stylesheet" />
+
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
@@ -19,127 +22,116 @@
         }
 
         body {
-            scroll-behavior: smooth;
+            background: #f4f6f9;
         }
 
-        main {
-            animation: fadeIn 0.6s ease-in-out;
+        /* Sidebar collapse */
+        .collapsed {
+            width: 80px !important;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
+        .collapsed .hide-text {
+            display: none;
+        }
+
+        /* Sidebar animation */
+        aside {
+            transition: 0.3s ease;
+        }
+
+        /* Skeleton loader */
+        .skeleton {
+            background: linear-gradient(90deg, #eee 25%, #ddd 37%, #eee 63%);
+            animation: shimmer 1.4s infinite;
+            background-size: 400% 100%;
+            height: 16px;
+            border-radius: 6px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 100% 0;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            100% {
+                background-position: -100% 0;
             }
         }
 
-        nav a {
-            padding: 6px 10px;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        nav a::after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: white;
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        #addBlogBtn {
-            box-shadow: 0 4px 10px rgba(248, 21, 62, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        #addBlogBtn:hover {
-            box-shadow: 0 8px 16px rgba(248, 21, 62, 0.5);
-            transform: translateY(-1px);
-        }
-
-        article {
-            transition: all 0.25s ease;
-        }
-
-        article:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        tbody tr {
-            transition: background 0.2s ease;
-        }
-
+        /* Table hover */
         tbody tr:hover {
-            background: rgba(248, 21, 62, 0.04);
+            background: rgba(248, 21, 62, .05);
         }
 
-        button:active {
-            transform: scale(0.97);
+        /* Stat hover */
+        .stat-card {
+            transition: .25s;
         }
 
-        @media (max-width: 480px) {
-            tbody tr td:last-child {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, .08);
+        }
+
+        /* Pagination */
+        .page-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .page-btn.active {
+            background: var(--brand-color);
+            color: white;
+            border-color: var(--brand-color);
         }
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<body class="flex min-h-screen">
 
-    <!-- HEADER -->
-    <header class="bg-[var(--brand-color)] text-white p-5 shadow-lg sticky top-0 z-50">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="bg-white shadow-xl w-64 fixed h-full z-40">
 
-        <div class="max-w-7xl mx-auto flex justify-between items-center px-4">
-
-            <h1 class="text-2xl font-bold tracking-wide">Admin Dashboard</h1>
-
-            <button id="hamburgerBtn" class="sm:hidden">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" viewBox="0 0 24 24">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </button>
-
-            <nav id="navMenu" class="hidden sm:flex gap-4 items-center ml-6">
-                <a href="./dashboard.html">Dashboard</a>
-                <a href="/blog.html">Blogs</a>
-                <a href="/menu.html">Menu</a>
-            </nav>
-
-            <button onclick="logout()"
-                class="hidden sm:inline-block bg-white text-[var(--brand-color)] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition">
-                Logout
-            </button>
-
+        <div class="p-5 border-b flex justify-between items-center">
+            <span class="font-bold text-[var(--brand-color)] hide-text">Jain Admin</span>
+            <button onclick="toggleSidebar()">☰</button>
         </div>
-    </header>
+
+        <nav class="p-4 space-y-2">
+
+            <a href="./dashboard.html"
+                class="block px-4 py-2 rounded-lg bg-red-50 text-[var(--brand-color)] font-semibold">
+                <span class="hide-text">Dashboard</span>
+            </a>
+
+            <a href="/blog.html" class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <span class="hide-text">Blogs</span>
+            </a>
+
+            <a href="/menu.html" class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <span class="hide-text">Menu</span>
+            </a>
+
+        </nav>
+
+        <div class="absolute bottom-4 w-full px-4">
+            <button onclick="logout()" class="w-full bg-[var(--brand-color)] text-white py-2 rounded-lg">
+                <span class="hide-text">Logout</span>
+            </button>
+        </div>
+
+    </aside>
 
     <!-- MAIN -->
-    <main class="max-w-7xl mx-auto mt-6 px-4 flex flex-col gap-6">
+    <div class="flex-1 ml-64 p-6 space-y-6">
 
-        <!-- ADD BLOG -->
-        <div>
-            <a href="./add_blog.html" id="addBlogBtn"
-                class="inline-block bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-medium">
+        <!-- HEADER -->
+        <div class="flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-700">Dashboard Overview</h1>
+            <a href="./add_blog.html"
+                class="bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-semibold shadow">
                 + Add Blog
             </a>
         </div>
@@ -147,53 +139,44 @@
         <!-- STATS -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <article class="bg-white rounded-xl p-6 shadow-md">
-                <h2 class="text-lg font-semibold text-gray-700">Total Blogs</h2>
-                <p class="text-sm text-gray-500">All published blogs</p>
-                <span id="blogCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
-            </article>
+            <div class="bg-white p-6 rounded-xl shadow stat-card">
+                <p class="text-sm text-gray-500">Total Blogs</p>
+                <h2 id="blogCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
+            </div>
 
-            <article class="bg-white rounded-xl p-6 shadow-md">
-                <h2 class="text-lg font-semibold text-gray-700">Upcoming Events</h2>
-                <p class="text-sm text-gray-500">Confirmed bookings</p>
-                <span id="eventCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
-            </article>
+            <div class="bg-white p-6 rounded-xl shadow stat-card">
+                <p class="text-sm text-gray-500">Upcoming Events</p>
+                <h2 id="eventCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
+            </div>
 
-            <article class="bg-white rounded-xl p-6 shadow-md">
-                <h2 class="text-lg font-semibold text-gray-700">New Messages</h2>
-                <p class="text-sm text-gray-500">Unread inquiries</p>
-                <span id="messageCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
-            </article>
+            <div class="bg-white p-6 rounded-xl shadow stat-card">
+                <p class="text-sm text-gray-500">Messages</p>
+                <h2 id="messageCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
+            </div>
 
         </section>
 
+        <!-- CHART -->
+        <section class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-semibold mb-3 text-gray-700">Blog Activity</h2>
+            <canvas id="blogChart"></canvas>
+        </section>
+
         <!-- BLOG TABLE -->
-        <section class="bg-white rounded-xl shadow-md overflow-hidden">
+        <section class="bg-white rounded-xl shadow overflow-hidden">
 
-            <div class="flex flex-col sm:flex-row justify-between items-center p-5 gap-3 border-b">
-
-                <h2 class="text-xl font-semibold text-gray-700">All Blogs</h2>
-
-                <input id="searchInput" type="text" placeholder="Search blog title..."
-                    class="border rounded-full px-4 py-2 text-sm w-full sm:w-64 focus:ring-2 focus:ring-[var(--brand-color)] focus:outline-none">
-
+            <div class="flex justify-between items-center p-5 border-b">
+                <h2 class="font-semibold text-gray-700">Manage Blogs</h2>
+                <input id="searchInput" type="text" placeholder="Search..."
+                    class="border px-4 py-2 rounded-full outline-none">
             </div>
 
-            <!-- Loader -->
-            <div id="loader" class="hidden text-center py-6">
-                <svg class="animate-spin h-6 w-6 mx-auto text-[var(--brand-color)]" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                </svg>
-                <p class="text-gray-600 mt-2">Loading blogs...</p>
-            </div>
-
+            <!-- TABLE -->
             <div class="overflow-x-auto">
 
                 <table class="w-full min-w-[600px]">
-
                     <thead class="bg-gray-50">
-                        <tr class="text-gray-600 text-left">
+                        <tr>
                             <th class="p-4">Title</th>
                             <th class="p-4">Date</th>
                             <th class="p-4 text-center">Actions</th>
@@ -206,102 +189,117 @@
 
             </div>
 
+            <!-- PAGINATION -->
+            <div id="pagination" class="p-4 flex gap-2 justify-center"></div>
+
         </section>
 
-    </main>
+    </div>
 
-    <!-- SweetAlert -->
+    <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
 
-        /* ADMIN PROTECTION */
+        /* AUTH */
         const token = localStorage.getItem("token");
         if (!token) window.location.href = "/login.html";
 
         /* LOGOUT */
         function logout() {
             localStorage.removeItem("token");
-            Swal.fire({
-                icon: "success",
-                title: "Logged out",
-                timer: 1200,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = "./login.html";
-            });
+            window.location.href = "./login.html";
         }
 
-        /* MOBILE MENU */
-        document.getElementById("hamburgerBtn").onclick = () => {
-            document.getElementById("navMenu").classList.toggle("hidden");
-        };
+        /* SIDEBAR COLLAPSE */
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("collapsed");
+        }
+
+        /* PAGINATION */
+        let blogsData = [];
+        let currentPage = 1;
+        const rowsPerPage = 5;
 
         /* LOAD BLOGS */
         async function loadBlogs() {
 
-            const loader = document.getElementById("loader");
-            loader.classList.remove("hidden");
+            const tbody = document.getElementById("blogTableBody");
+
+            // Skeleton Loader
+            tbody.innerHTML = `
+        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
+        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
+        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
+      `;
 
             try {
 
                 const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
-                const blogs = await res.json();
+                blogsData = await res.json();
 
-                loader.classList.add("hidden");
+                document.getElementById("blogCount").innerText = blogsData.length;
 
-                const tbody = document.getElementById("blogTableBody");
-                tbody.innerHTML = "";
+                renderTable();
+                renderPagination();
+                loadChart();
 
-                if (!Array.isArray(blogs) || blogs.length === 0) {
+            } catch {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-red-500">Failed to load blogs</td></tr>`;
+            }
+        }
 
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="3" class="p-4 text-center text-gray-500">
-                                No blogs found.
-                            </td>
-                        </tr>`;
+        /* TABLE RENDER */
+        function renderTable() {
 
-                    document.getElementById("blogCount").innerText = 0;
-                    return;
-                }
+            const tbody = document.getElementById("blogTableBody");
+            tbody.innerHTML = "";
 
-                document.getElementById("blogCount").innerText = blogs.length;
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
 
-                blogs.forEach(blog => {
+            const pageData = blogsData.slice(start, end);
 
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="p-4 font-medium text-gray-700">${blog.title}</td>
-                            <td class="p-4 text-gray-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
-                            <td class="p-4 text-center space-x-2">
+            pageData.forEach(blog => {
 
-                                <button onclick="editBlog('${blog._id || blog.id}')"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">
-                                    Edit
-                                </button>
+                tbody.innerHTML += `
+          <tr>
+            <td class="p-4">${blog.title}</td>
+            <td class="p-4">${new Date(blog.createdAt).toLocaleDateString()}</td>
+            <td class="p-4 text-center">
 
-                                <button onclick="deleteBlog('${blog._id || blog.id}')"
-                                    class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">
-                                    Delete
-                                </button>
+              <button onclick="deleteBlog('${blog._id}')"
+                class="bg-[var(--brand-color)] text-white px-3 py-1 rounded-full">
+                Delete
+              </button>
 
-                            </td>
-                        </tr>`;
-                });
+            </td>
+          </tr>
+        `;
+            });
+        }
 
-            } catch (error) {
+        /* PAGINATION RENDER */
+        function renderPagination() {
 
-                loader.classList.add("hidden");
+            const pages = Math.ceil(blogsData.length / rowsPerPage);
+            const container = document.getElementById("pagination");
 
-                document.getElementById("blogTableBody").innerHTML = `
-                    <tr>
-                        <td colspan="3" class="p-4 text-center text-red-500">
-                            Failed to load blogs
-                        </td>
-                    </tr>`;
+            container.innerHTML = "";
 
-                Swal.fire("Error", "Failed to load blogs", "error");
+            for (let i = 1; i <= pages; i++) {
+
+                const btn = document.createElement("button");
+                btn.innerText = i;
+                btn.className = "page-btn " + (i === currentPage ? "active" : "");
+
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                    renderPagination();
+                };
+
+                container.appendChild(btn);
             }
         }
 
@@ -309,58 +307,53 @@
         async function deleteBlog(id) {
 
             const confirm = await Swal.fire({
-                title: "Are you sure?",
-                text: "This blog will be permanently deleted!",
+                title: "Delete blog?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonColor: "#d33"
             });
 
             if (!confirm.isConfirmed) return;
 
-            try {
+            await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-                const res = await fetch(
-                    `https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
+            loadBlogs();
+        }
 
-                if (!res.ok) throw new Error();
+        /* CHART */
+        function loadChart() {
 
-                Swal.fire({
-                    toast: true,
-                    icon: "success",
-                    title: "Blog deleted",
-                    timer: 1500,
-                    position: "top-end",
-                    showConfirmButton: false
-                });
+            const ctx = document.getElementById("blogChart");
 
-                loadBlogs();
-
-            } catch {
-
-                Swal.fire("Error", "Delete failed", "error");
-            }
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Blogs"],
+                    datasets: [{
+                        label: "Total Blogs",
+                        data: [blogsData.length],
+                        backgroundColor: "#F8153E"
+                    }]
+                }
+            });
         }
 
         /* SEARCH */
         document.getElementById("searchInput").addEventListener("input", e => {
 
-            const value = e.target.value.toLowerCase();
+            const val = e.target.value.toLowerCase();
 
-            document.querySelectorAll("#blogTableBody tr").forEach(row => {
+            blogsData = blogsData.filter(b =>
+                b.title.toLowerCase().includes(val)
+            );
 
-                const title = row.children[0]?.textContent.toLowerCase() || "";
-                row.style.display = title.includes(value) ? "" : "none";
+            currentPage = 1;
+            renderTable();
+            renderPagination();
 
-            });
         });
 
         window.onload = loadBlogs;
