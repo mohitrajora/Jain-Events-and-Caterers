@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin Dashboard | Jain Events & Caterers</title>
 
-    <!-- SEO Protection -->
+    <!-- SEO -->
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="googlebot" content="noindex, nofollow" />
 
     <link rel="icon" href="/img/logo.jpg" />
     <link href="/src/css/output.css" rel="stylesheet" />
 
-    <!-- Chart JS -->
+    <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -25,7 +24,10 @@
             background: #f4f6f9;
         }
 
-        /* Sidebar collapse */
+        aside {
+            transition: 0.3s;
+        }
+
         .collapsed {
             width: 80px !important;
         }
@@ -34,18 +36,13 @@
             display: none;
         }
 
-        /* Sidebar animation */
-        aside {
-            transition: 0.3s ease;
-        }
-
-        /* Skeleton loader */
+        /* Skeleton */
         .skeleton {
-            background: linear-gradient(90deg, #eee 25%, #ddd 37%, #eee 63%);
-            animation: shimmer 1.4s infinite;
-            background-size: 400% 100%;
             height: 16px;
             border-radius: 6px;
+            background: linear-gradient(90deg, #eee 25%, #ddd 37%, #eee 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.3s infinite;
         }
 
         @keyframes shimmer {
@@ -58,33 +55,19 @@
             }
         }
 
-        /* Table hover */
         tbody tr:hover {
             background: rgba(248, 21, 62, .05);
         }
 
-        /* Stat hover */
-        .stat-card {
-            transition: .25s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, .08);
-        }
-
-        /* Pagination */
         .page-btn {
             padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid #ddd;
-            cursor: pointer;
         }
 
         .page-btn.active {
             background: var(--brand-color);
             color: white;
-            border-color: var(--brand-color);
         }
     </style>
 </head>
@@ -92,15 +75,14 @@
 <body class="flex min-h-screen">
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="bg-white shadow-xl w-64 fixed h-full z-40">
+    <aside id="sidebar" class="bg-white shadow-xl w-64 fixed h-full">
 
-        <div class="p-5 border-b flex justify-between items-center">
+        <div class="p-5 border-b flex justify-between">
             <span class="font-bold text-[var(--brand-color)] hide-text">Jain Admin</span>
             <button onclick="toggleSidebar()">☰</button>
         </div>
 
         <nav class="p-4 space-y-2">
-
             <a href="./dashboard.html"
                 class="block px-4 py-2 rounded-lg bg-red-50 text-[var(--brand-color)] font-semibold">
                 <span class="hide-text">Dashboard</span>
@@ -113,7 +95,6 @@
             <a href="/menu.html" class="block px-4 py-2 rounded-lg hover:bg-gray-100">
                 <span class="hide-text">Menu</span>
             </a>
-
         </nav>
 
         <div class="absolute bottom-4 w-full px-4">
@@ -130,8 +111,7 @@
         <!-- HEADER -->
         <div class="flex justify-between items-center">
             <h1 class="text-xl font-bold text-gray-700">Dashboard Overview</h1>
-            <a href="./add_blog.html"
-                class="bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-semibold shadow">
+            <a href="./add_blog.html" class="bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-semibold">
                 + Add Blog
             </a>
         </div>
@@ -139,17 +119,17 @@
         <!-- STATS -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <div class="bg-white p-6 rounded-xl shadow stat-card">
+            <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-sm text-gray-500">Total Blogs</p>
                 <h2 id="blogCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow stat-card">
+            <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-sm text-gray-500">Upcoming Events</p>
                 <h2 id="eventCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow stat-card">
+            <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-sm text-gray-500">Messages</p>
                 <h2 id="messageCount" class="text-3xl font-bold text-[var(--brand-color)]">0</h2>
             </div>
@@ -158,23 +138,24 @@
 
         <!-- CHART -->
         <section class="bg-white p-6 rounded-xl shadow">
-            <h2 class="font-semibold mb-3 text-gray-700">Blog Activity</h2>
+            <h2 class="font-semibold mb-3 text-gray-700">
+                Blogs Published (Last 6 Months)
+            </h2>
             <canvas id="blogChart"></canvas>
         </section>
 
-        <!-- BLOG TABLE -->
+        <!-- TABLE -->
         <section class="bg-white rounded-xl shadow overflow-hidden">
 
-            <div class="flex justify-between items-center p-5 border-b">
+            <div class="flex justify-between p-5 border-b">
                 <h2 class="font-semibold text-gray-700">Manage Blogs</h2>
-                <input id="searchInput" type="text" placeholder="Search..."
-                    class="border px-4 py-2 rounded-full outline-none">
+
+                <input id="searchInput" placeholder="Search..." class="border px-4 py-2 rounded-full outline-none">
             </div>
 
-            <!-- TABLE -->
             <div class="overflow-x-auto">
-
                 <table class="w-full min-w-[600px]">
+
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="p-4">Title</th>
@@ -186,37 +167,30 @@
                     <tbody id="blogTableBody"></tbody>
 
                 </table>
-
             </div>
 
-            <!-- PAGINATION -->
             <div id="pagination" class="p-4 flex gap-2 justify-center"></div>
 
         </section>
 
     </div>
 
-    <!-- SWEET ALERT -->
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-
-        /* AUTH */
         const token = localStorage.getItem("token");
         if (!token) window.location.href = "/login.html";
 
-        /* LOGOUT */
         function logout() {
             localStorage.removeItem("token");
             window.location.href = "./login.html";
         }
 
-        /* SIDEBAR COLLAPSE */
         function toggleSidebar() {
             document.getElementById("sidebar").classList.toggle("collapsed");
         }
 
-        /* PAGINATION */
         let blogsData = [];
         let currentPage = 1;
         const rowsPerPage = 5;
@@ -226,30 +200,22 @@
 
             const tbody = document.getElementById("blogTableBody");
 
-            // Skeleton Loader
             tbody.innerHTML = `
-        <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
         <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
         <tr><td colspan="3" class="p-4"><div class="skeleton w-full"></div></td></tr>
       `;
 
-            try {
+            const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
+            blogsData = await res.json();
 
-                const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
-                blogsData = await res.json();
+            document.getElementById("blogCount").innerText = blogsData.length;
 
-                document.getElementById("blogCount").innerText = blogsData.length;
-
-                renderTable();
-                renderPagination();
-                loadChart();
-
-            } catch {
-                tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-red-500">Failed to load blogs</td></tr>`;
-            }
+            renderTable();
+            renderPagination();
+            renderChart();
         }
 
-        /* TABLE RENDER */
+        /* TABLE */
         function renderTable() {
 
             const tbody = document.getElementById("blogTableBody");
@@ -258,15 +224,18 @@
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
 
-            const pageData = blogsData.slice(start, end);
-
-            pageData.forEach(blog => {
+            blogsData.slice(start, end).forEach(blog => {
 
                 tbody.innerHTML += `
           <tr>
             <td class="p-4">${blog.title}</td>
             <td class="p-4">${new Date(blog.createdAt).toLocaleDateString()}</td>
-            <td class="p-4 text-center">
+            <td class="p-4 text-center space-x-2">
+
+              <button onclick="editBlog('${blog._id}')"
+                class="bg-blue-500 text-white px-3 py-1 rounded-full">
+                Edit
+              </button>
 
               <button onclick="deleteBlog('${blog._id}')"
                 class="bg-[var(--brand-color)] text-white px-3 py-1 rounded-full">
@@ -279,7 +248,7 @@
             });
         }
 
-        /* PAGINATION RENDER */
+        /* PAGINATION */
         function renderPagination() {
 
             const pages = Math.ceil(blogsData.length / rowsPerPage);
@@ -290,8 +259,8 @@
             for (let i = 1; i <= pages; i++) {
 
                 const btn = document.createElement("button");
-                btn.innerText = i;
                 btn.className = "page-btn " + (i === currentPage ? "active" : "");
+                btn.innerText = i;
 
                 btn.onclick = () => {
                     currentPage = i;
@@ -303,7 +272,7 @@
             }
         }
 
-        /* DELETE BLOG */
+        /* DELETE */
         async function deleteBlog(id) {
 
             const confirm = await Swal.fire({
@@ -323,41 +292,60 @@
             loadBlogs();
         }
 
+        /* EDIT */
+        async function editBlog(id) {
+
+            const blog = blogsData.find(b => b._id === id);
+
+            const { value } = await Swal.fire({
+                title: "Edit Blog",
+                input: "text",
+                inputValue: blog.title,
+                showCancelButton: true
+            });
+
+            if (!value) return;
+
+            await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ title: value })
+            });
+
+            loadBlogs();
+        }
+
         /* CHART */
-        function loadChart() {
+        function renderChart() {
 
-            const ctx = document.getElementById("blogChart");
+            const months = {};
+            blogsData.forEach(b => {
+                const m = new Date(b.createdAt).toLocaleString('default', { month: 'short' });
+                months[m] = (months[m] || 0) + 1;
+            });
 
-            new Chart(ctx, {
-                type: "bar",
+            const labels = Object.keys(months);
+            const values = Object.values(months);
+
+            new Chart(document.getElementById("blogChart"), {
+                type: "line",
                 data: {
-                    labels: ["Blogs"],
+                    labels,
                     datasets: [{
-                        label: "Total Blogs",
-                        data: [blogsData.length],
-                        backgroundColor: "#F8153E"
+                        label: "Blogs",
+                        data: values,
+                        borderColor: "#F8153E",
+                        tension: 0.4,
+                        fill: true
                     }]
                 }
             });
         }
 
-        /* SEARCH */
-        document.getElementById("searchInput").addEventListener("input", e => {
-
-            const val = e.target.value.toLowerCase();
-
-            blogsData = blogsData.filter(b =>
-                b.title.toLowerCase().includes(val)
-            );
-
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-
-        });
-
         window.onload = loadBlogs;
-
     </script>
 
 </body>
