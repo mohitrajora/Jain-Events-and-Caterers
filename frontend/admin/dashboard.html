@@ -321,31 +321,69 @@
             loadBlogs();
         }
 
-        /* EDIT */
+        /* EDIT BLOG */
         async function editBlog(id) {
 
-            const blog = blogsData.find(b => b._id === id);
+            try {
 
-            const { value } = await Swal.fire({
-                title: "Edit Blog Title",
-                input: "text",
-                inputValue: blog.title,
-                showCancelButton: true,
-                confirmButtonColor: "#F8153E"
-            });
+                // Fetch fresh blog data from backend
+                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${id}`);
 
-            if (!value) return;
+                const blog = await res.json();
 
-            await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({ title: value })
-            });
+                if (!res.ok || !blog) {
+                    Swal.fire("Error", "Blog not found", "error");
+                    return;
+                }
 
-            loadBlogs();
+                const { value: newTitle } = await Swal.fire({
+                    title: "Edit Blog Title",
+                    input: "text",
+                    inputValue: blog.title,
+                    showCancelButton: true,
+                    confirmButtonColor: "#F8153E",
+                    inputValidator: (value) => {
+                        if (!value) return "Title cannot be empty";
+                    }
+                });
+
+                if (!newTitle) return;
+
+                // Update blog
+                const updateRes = await fetch(
+                    `https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ title: newTitle })
+                    }
+                );
+
+                if (!updateRes.ok) {
+                    Swal.fire("Error", "Update failed", "error");
+                    return;
+                }
+
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    title: "Blog updated",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                loadBlogs();
+
+            } catch (err) {
+
+                console.error(err);
+                Swal.fire("Error", "Something went wrong", "error");
+
+            }
         }
 
         /* CHART */
