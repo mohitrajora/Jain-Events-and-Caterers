@@ -102,6 +102,14 @@
 
     <!-- BLOG LOGIC -->
     <script>
+
+        // Convert HTML to plain text for SEO meta description
+        function extractText(html) {
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = html;
+            return tempDiv.textContent || tempDiv.innerText || "";
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
 
             const loader = document.getElementById("loader");
@@ -144,7 +152,7 @@
                                 ${blog.title}
                             </h3>
                             <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-                                ${(blog.content || "").replace(/<[^>]+>/g, "").slice(0, 100)}...
+                                ${extractText(blog.content || "").slice(0, 100)}...
                             </p>
                             <a href="/blog/${blog.slug}"
                                 class="text-[#F8153E] font-medium hover:underline">
@@ -173,14 +181,14 @@
                 blogMeta.textContent =
                     `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
 
-                // MAIN CONTENT RENDER
+                // ✅ Render RAW HTML from Quill
                 blogBody.innerHTML = blog.content;
 
-                // PAGE TITLE
+                // Page title SEO
                 document.title =
                     `${blog.title} | Jain Events & Caterers`;
 
-                // META DESCRIPTION FIX
+                // META DESCRIPTION
                 let metaDesc = document.querySelector('meta[name="description"]');
 
                 if (!metaDesc) {
@@ -189,9 +197,7 @@
                     document.head.appendChild(metaDesc);
                 }
 
-                const cleanText = decodeHTML(blog.content || "")
-                    .replace(/<[^>]+>/g, "")
-                    .slice(0, 150);
+                const cleanText = extractText(blog.content || "").slice(0, 150);
 
                 metaDesc.setAttribute("content", cleanText + "...");
 
