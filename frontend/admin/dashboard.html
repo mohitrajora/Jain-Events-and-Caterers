@@ -6,174 +6,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin Dashboard | Jain Events & Caterers</title>
 
-    <!-- SEO Protection for Admin -->
+    <!-- SEO Protection -->
     <meta name="robots" content="noindex, nofollow" />
     <meta name="googlebot" content="noindex, nofollow" />
 
     <link rel="icon" type="image/jpg" href="/img/logo.jpg" />
     <link href="/src/css/output.css" rel="stylesheet" />
+
     <style>
         :root {
             --brand-color: #F8153E;
         }
 
+        body {
+            scroll-behavior: smooth;
+        }
+
+        main {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         nav a {
-            margin-right: 0.5rem;
-            padding: 0.375rem 0.5rem;
+            padding: 6px 10px;
             font-weight: 500;
-            transition: color 0.2s ease-in-out;
+            position: relative;
+            transition: all 0.2s ease;
         }
 
-        nav a:last-child {
-            margin-right: 0;
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
         }
 
-        nav a:hover {
-            text-decoration: underline;
-            color: #fff;
+        nav a:hover::after {
+            width: 100%;
         }
 
         #addBlogBtn {
-            white-space: nowrap;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgb(248 21 62 / 0.4);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(248, 21, 62, 0.4);
+            transition: all 0.3s ease;
         }
 
         #addBlogBtn:hover {
-            background-color: #dc143c;
-            box-shadow: 0 6px 8px rgb(220 20 60 / 0.6);
+            box-shadow: 0 8px 16px rgba(248, 21, 62, 0.5);
+            transform: translateY(-1px);
+        }
+
+        article {
+            transition: all 0.25s ease;
+        }
+
+        article:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(248, 21, 62, 0.04);
+        }
+
+        button:active {
+            transform: scale(0.97);
         }
 
         @media (max-width: 480px) {
             tbody tr td:last-child {
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
-                justify-content: center;
+                gap: 8px;
             }
         }
     </style>
 </head>
 
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <!-- Header -->
-    <header
-        class="bg-[var(--brand-color)] text-white p-5 shadow-lg w-full flex items-center justify-between max-w-full flex-wrap sm:flex-nowrap">
-        <div class="max-w-7xl mx-auto w-full flex items-center justify-between px-4">
-            <h1 class="text-2xl font-bold tracking-wide whitespace-nowrap flex-shrink-0">Admin Dashboard</h1>
+    <!-- HEADER -->
+    <header class="bg-[var(--brand-color)] text-white p-5 shadow-lg sticky top-0 z-50">
 
-            <!-- Hamburger button for mobile -->
-            <button id="hamburgerBtn" aria-label="Toggle Menu" class="sm:hidden focus:outline-none ml-auto">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4">
+
+            <h1 class="text-2xl font-bold tracking-wide">Admin Dashboard</h1>
+
+            <button id="hamburgerBtn" class="sm:hidden">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
                     <line x1="3" y1="6" x2="21" y2="6" />
                     <line x1="3" y1="12" x2="21" y2="12" />
                     <line x1="3" y1="18" x2="21" y2="18" />
                 </svg>
             </button>
 
-            <!-- Navigation links -->
-            <nav id="navMenu" class="hidden sm:flex flex-nowrap flex-1 justify-center items-center gap-2 min-w-0 ml-4">
-                <a href="./dashboard.html" class="hover:underline whitespace-nowrap">Dashboard</a>
-                <a href="/blog.html" class="hover:underline whitespace-nowrap">Blogs</a>
-                <a href="/menu.html" class="hover:underline whitespace-nowrap">Menu</a>
+            <nav id="navMenu" class="hidden sm:flex gap-4 items-center ml-6">
+                <a href="./dashboard.html">Dashboard</a>
+                <a href="/blog.html">Blogs</a>
+                <a href="/menu.html">Menu</a>
             </nav>
 
-            <!-- Logout Button -->
             <button onclick="logout()"
-                class="hidden sm:inline-block bg-white text-[var(--brand-color)] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition whitespace-nowrap">
+                class="hidden sm:inline-block bg-white text-[var(--brand-color)] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition">
                 Logout
             </button>
+
         </div>
     </header>
 
-    <!-- Main Content Wrapper -->
-    <main class="max-w-7xl mx-auto mt-6 px-4 w-full flex flex-col gap-6">
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto mt-6 px-4 flex flex-col gap-6">
 
-        <!-- Add Blog Button -->
-        <div class="self-start">
+        <!-- ADD BLOG -->
+        <div>
             <a href="./add_blog.html" id="addBlogBtn"
-                class="inline-block bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg hover:bg-red-600 transition duration-300 whitespace-nowrap">
+                class="inline-block bg-[var(--brand-color)] text-white px-6 py-3 rounded-full font-medium">
                 + Add Blog
             </a>
         </div>
 
-        <!-- Stats Cards Grid -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        <!-- STATS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <article class="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between min-w-[250px] w-full">
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-700">Total Blogs</h2>
-                    <p class="text-sm text-gray-500">All published blogs</p>
-                </div>
-                <span id="blogCount" class="text-3xl font-extrabold text-[var(--brand-color)] mt-2">0</span>
+            <article class="bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-lg font-semibold text-gray-700">Total Blogs</h2>
+                <p class="text-sm text-gray-500">All published blogs</p>
+                <span id="blogCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
             </article>
 
-            <article class="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between min-w-[250px] w-full">
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-700">Upcoming Events</h2>
-                    <p class="text-sm text-gray-500">Confirmed bookings</p>
-                </div>
-                <span id="eventCount" class="text-3xl font-extrabold text-[var(--brand-color)] mt-2">0</span>
+            <article class="bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-lg font-semibold text-gray-700">Upcoming Events</h2>
+                <p class="text-sm text-gray-500">Confirmed bookings</p>
+                <span id="eventCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
             </article>
 
-            <article class="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between min-w-[250px] w-full">
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-700">New Messages</h2>
-                    <p class="text-sm text-gray-500">Unread inquiries</p>
-                </div>
-                <span id="messageCount" class="text-3xl font-extrabold text-[var(--brand-color)] mt-2">0</span>
+            <article class="bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-lg font-semibold text-gray-700">New Messages</h2>
+                <p class="text-sm text-gray-500">Unread inquiries</p>
+                <span id="messageCount" class="text-3xl font-bold text-[var(--brand-color)] block mt-3">0</span>
             </article>
 
         </section>
 
-        <!-- Blog List Table -->
-        <section class="bg-white shadow-md rounded-xl overflow-hidden w-full">
-            <div
-                class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 border-b border-gray-200 gap-3">
+        <!-- BLOG TABLE -->
+        <section class="bg-white rounded-xl shadow-md overflow-hidden">
+
+            <div class="flex flex-col sm:flex-row justify-between items-center p-5 gap-3 border-b">
+
                 <h2 class="text-xl font-semibold text-gray-700">All Blogs</h2>
+
                 <input id="searchInput" type="text" placeholder="Search blog title..."
-                    class="border rounded-full px-4 py-2 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[var(--brand-color)]" />
+                    class="border rounded-full px-4 py-2 text-sm w-full sm:w-64 focus:ring-2 focus:ring-[var(--brand-color)] focus:outline-none">
+
             </div>
 
             <!-- Loader -->
-            <div id="loader" class="text-center py-6 text-gray-600 hidden">
-                <svg class="animate-spin h-6 w-6 inline text-[var(--brand-color)]" viewBox="0 0 24 24">
+            <div id="loader" class="hidden text-center py-6">
+                <svg class="animate-spin h-6 w-6 mx-auto text-[var(--brand-color)]" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                 </svg>
-                <p>Loading blogs...</p>
+                <p class="text-gray-600 mt-2">Loading blogs...</p>
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full min-w-[600px] border-collapse">
-                    <thead>
-                        <tr class="bg-gray-50 text-gray-600 text-left">
-                            <th class="p-4 border-b">Title</th>
-                            <th class="p-4 border-b">Date</th>
-                            <th class="p-4 border-b text-center">Actions</th>
+
+                <table class="w-full min-w-[600px]">
+
+                    <thead class="bg-gray-50">
+                        <tr class="text-gray-600 text-left">
+                            <th class="p-4">Title</th>
+                            <th class="p-4">Date</th>
+                            <th class="p-4 text-center">Actions</th>
                         </tr>
                     </thead>
+
                     <tbody id="blogTableBody"></tbody>
+
                 </table>
+
             </div>
+
         </section>
 
     </main>
 
-    <!-- SweetAlert2 -->
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        //  Protect Admin Access
-        const token = localStorage.getItem("token");
-        if (!token) {
-            window.location.href = "/login.html";
-        }
 
-        //  Logout function
+        /* ADMIN PROTECTION */
+        const token = localStorage.getItem("token");
+        if (!token) window.location.href = "/login.html";
+
+        /* LOGOUT */
         function logout() {
             localStorage.removeItem("token");
             Swal.fire({
@@ -186,21 +232,36 @@
             });
         }
 
-        //  Load Blogs
+        /* MOBILE MENU */
+        document.getElementById("hamburgerBtn").onclick = () => {
+            document.getElementById("navMenu").classList.toggle("hidden");
+        };
+
+        /* LOAD BLOGS */
         async function loadBlogs() {
+
             const loader = document.getElementById("loader");
             loader.classList.remove("hidden");
 
             try {
+
                 const res = await fetch("https://backend-jaine-cforrender.onrender.com/blogs");
                 const blogs = await res.json();
+
                 loader.classList.add("hidden");
 
-                const blogTableBody = document.getElementById("blogTableBody");
-                blogTableBody.innerHTML = "";
+                const tbody = document.getElementById("blogTableBody");
+                tbody.innerHTML = "";
 
                 if (!Array.isArray(blogs) || blogs.length === 0) {
-                    blogTableBody.innerHTML = `<tr><td colspan="3" class="text-center p-4 text-gray-500">No blogs found.</td></tr>`;
+
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="3" class="p-4 text-center text-gray-500">
+                                No blogs found.
+                            </td>
+                        </tr>`;
+
                     document.getElementById("blogCount").innerText = 0;
                     return;
                 }
@@ -208,227 +269,102 @@
                 document.getElementById("blogCount").innerText = blogs.length;
 
                 blogs.forEach(blog => {
-                    const row = `
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="p-4 border-b text-gray-700 font-medium">${blog.title}</td>
-                            <td class="p-4 border-b text-gray-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
-                            <td class="p-4 border-b text-center space-x-2 whitespace-nowrap">
-                                <button onclick="editBlog('${blog.id || blog._id}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">Edit</button>
-                                <button onclick="deleteBlog('${blog.id || blog._id}')" class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">Delete</button>
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="p-4 font-medium text-gray-700">${blog.title}</td>
+                            <td class="p-4 text-gray-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
+                            <td class="p-4 text-center space-x-2">
+
+                                <button onclick="editBlog('${blog._id || blog.id}')"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full transition">
+                                    Edit
+                                </button>
+
+                                <button onclick="deleteBlog('${blog._id || blog.id}')"
+                                    class="bg-[var(--brand-color)] hover:bg-red-700 text-white px-3 py-1 rounded-full transition">
+                                    Delete
+                                </button>
+
                             </td>
                         </tr>`;
-                    blogTableBody.innerHTML += row;
                 });
+
             } catch (error) {
+
                 loader.classList.add("hidden");
-                console.error("Error loading blogs:", error);
-                document.getElementById("blogTableBody").innerHTML = `<tr><td colspan="3" class="text-center p-4 text-red-500">Failed to load blogs.</td></tr>`;
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Failed to load blogs. Please try again later!"
-                });
+
+                document.getElementById("blogTableBody").innerHTML = `
+                    <tr>
+                        <td colspan="3" class="p-4 text-center text-red-500">
+                            Failed to load blogs
+                        </td>
+                    </tr>`;
+
+                Swal.fire("Error", "Failed to load blogs", "error");
             }
         }
 
-        //  Delete Blog
+        /* DELETE BLOG */
         async function deleteBlog(id) {
-            const token = localStorage.getItem("token");
+
             const confirm = await Swal.fire({
                 title: "Are you sure?",
                 text: "This blog will be permanently deleted!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
                 confirmButtonText: "Yes, delete it!"
             });
 
             if (!confirm.isConfirmed) return;
 
             try {
-                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`, {
-                    method: "DELETE",
-                    headers: { Authorization: `Bearer ${token}` }
-                });
 
-                const data = await res.json();
-                if (res.ok) {
-                    Swal.fire({
-                        toast: true,
-                        position: "top-end",
-                        icon: "success",
-                        title: "Blog deleted successfully!",
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true
-                    });
-                    loadBlogs();
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Failed",
-                        text: data.message || "Could not delete blog. Try again."
-                    });
-                }
-            } catch (error) {
-                console.error("Error deleting blog:", error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Something went wrong while deleting."
-                });
-            }
-        }
-
-        //  Escape HTML to avoid breaking SweetAlert layout
-        function escapeHtml(text) {
-            if (!text) return "";
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#39;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-        }
-
-        //  Edit Blog (UPDATED WITH META FIELDS)
-        async function editBlog(id) {
-            try {
-                const token = localStorage.getItem("token");
-
-                // Fetch blog
-                const res = await fetch(`https://backend-jaine-cforrender.onrender.com/blogs/${id}`);
-                const blog = await res.json();
-
-                if (!res.ok) throw new Error(blog.error || "Blog not found!");
-
-                const { value: formValues } = await Swal.fire({
-                    title: "Edit Blog",
-                    html: `
-                <div class="text-left space-y-4">
-
-                    <div>
-                        <label class="block font-medium mb-1">Blog Title</label>
-                        <input id="swal-title"
-                            class="w-full border rounded-lg px-4 py-2 focus:ring-[var(--brand-color)]"
-                            value="${escapeHtml(blog.title)}">
-                    </div>
-
-                    <div>
-                        <label class="block font-medium mb-1">Category</label>
-                        <select id="swal-category"
-                                class="w-full border rounded-lg px-4 py-2 focus:ring-[var(--brand-color)]">
-                            <option value="">Select category</option>
-                            <option value="wedding"  ${blog.category === "wedding" ? "selected" : ""}>Wedding</option>
-                            <option value="birthday" ${blog.category === "birthday" ? "selected" : ""}>Birthday</option>
-                            <option value="corporate" ${blog.category === "corporate" ? "selected" : ""}>Corporate</option>
-                            <option value="festival" ${blog.category === "festival" ? "selected" : ""}>Festival</option>
-                            <option value="other" ${blog.category === "other" ? "selected" : ""}>Other</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block font-medium mb-1">Content</label>
-                        <textarea id="swal-content" rows="6"
-                            class="w-full border rounded-lg px-4 py-2 focus:ring-[var(--brand-color)]"
-                        >${escapeHtml(blog.content)}</textarea>
-                    </div>
-
-                    <!--  META TITLE FIELD -->
-                    <div>
-                        <label class="block font-medium mb-1">Meta Title (SEO Title)</label>
-                        <input id="swal-metaTitle"
-                            class="w-full border rounded-lg px-4 py-2 focus:ring-[var(--brand-color)]"
-                            placeholder="SEO title (optional)"
-                            value="${escapeHtml(blog.metaTitle || "")}">
-                    </div>
-
-                    <!--  META DESCRIPTION FIELD -->
-                    <div>
-                        <label class="block font-medium mb-1">Meta Description (SEO Description)</label>
-                        <textarea id="swal-metaDescription" rows="3"
-                            class="w-full border rounded-lg px-4 py-2 focus:ring-[var(--brand-color)]"
-                            placeholder="Short SEO summary (150–160 chars recommended)"
-                        >${escapeHtml(blog.metaDescription || "")}</textarea>
-                    </div>
-
-                </div>
-            `,
-                    showCancelButton: true,
-                    confirmButtonText: "Save",
-                    width: "750px",
-                    customClass: {
-                        popup: "rounded-xl shadow-xl",
-                        confirmButton: "bg-[var(--brand-color)] text-white px-6 py-2 rounded-lg hover:bg-red-700 transition",
-                        cancelButton: "bg-gray-300 px-6 py-2 rounded-lg hover:bg-gray-400 transition ml-2"
-                    },
-                    focusConfirm: false,
-
-                    preConfirm: () => {
-                        const title = document.getElementById("swal-title").value.trim();
-                        const category = document.getElementById("swal-category").value.trim();
-                        const content = document.getElementById("swal-content").value.trim();
-                        const metaTitle = document.getElementById("swal-metaTitle").value.trim();
-                        const metaDescription = document.getElementById("swal-metaDescription").value.trim();
-
-                        if (!title || !category || !content) {
-                            Swal.showValidationMessage("Blog Title, Category & Content are required");
-                            return false;
+                const res = await fetch(
+                    `https://backend-jaine-cforrender.onrender.com/blogs/delete-blog/${id}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            Authorization: `Bearer ${token}`
                         }
-
-                        return { title, category, content, metaTitle, metaDescription };
                     }
-                });
+                );
 
-                //  Update Blog
-                if (formValues) {
-                    const updateRes = await fetch(
-                        `https://backend-jaine-cforrender.onrender.com/blogs/update-blog/${id}`,
-                        {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`
-                            },
-                            body: JSON.stringify(formValues)
-                        }
-                    );
+                if (!res.ok) throw new Error();
 
-                    const data = await updateRes.json();
-
-                    if (!updateRes.ok)
-                        throw new Error(data.error || "Failed to update blog");
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "Blog updated successfully",
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-
-                    loadBlogs();
-                }
-
-            } catch (err) {
                 Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: err.message
+                    toast: true,
+                    icon: "success",
+                    title: "Blog deleted",
+                    timer: 1500,
+                    position: "top-end",
+                    showConfirmButton: false
                 });
+
+                loadBlogs();
+
+            } catch {
+
+                Swal.fire("Error", "Delete failed", "error");
             }
         }
 
-        //  Search Filter
+        /* SEARCH */
         document.getElementById("searchInput").addEventListener("input", e => {
-            const query = e.target.value.toLowerCase();
+
+            const value = e.target.value.toLowerCase();
+
             document.querySelectorAll("#blogTableBody tr").forEach(row => {
+
                 const title = row.children[0]?.textContent.toLowerCase() || "";
-                row.style.display = title.includes(query) ? "" : "none";
+                row.style.display = title.includes(value) ? "" : "none";
+
             });
         });
 
         window.onload = loadBlogs;
+
     </script>
 
 </body>
