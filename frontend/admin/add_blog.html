@@ -180,19 +180,20 @@
             metaCountEl.textContent = metaDescriptionEl.value.length;
         });
 
-        // INIT QUILL EDITOR
         var quill = new Quill('#editor', {
             theme: 'snow',
             modules: {
                 toolbar: [
-                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                    ['bold', 'italic', 'underline'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    [{ header: [1, 2, 3, false] }], // Only important ones
+                    ['bold', 'italic'],
                     ['link'],
+                    [{ list: 'bullet' }],
                     ['clean']
                 ]
-            }
+            },
+            placeholder: "Write blog content here... Use H1 for main title, H2 for sections"
         });
+
 
         // FORM SUBMIT
         document.getElementById("addBlogForm").addEventListener("submit", async function (event) {
