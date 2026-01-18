@@ -68,10 +68,13 @@
 
                 <p id="blogMeta" class="text-gray-500 text-sm mb-6"></p>
 
-                <div id="blogBody" class="text-gray-800 leading-relaxed whitespace-pre-line text-lg"></div>
+                <!-- IMPORTANT FIX: removed whitespace-pre-line -->
+                <div id="blogBody" class="text-gray-800 leading-relaxed text-lg"></div>
 
                 <div class="mt-10 text-center">
-                    <a href="/blog" class="text-[#F8153E] hover:underline font-semibold">← Back to Blogs</a>
+                    <a href="/blog" class="text-[#F8153E] hover:underline font-semibold">
+                        ← Back to Blogs
+                    </a>
                 </div>
             </article>
 
@@ -88,6 +91,7 @@
             <div id="errorMessage" class="hidden text-center text-red-600 font-medium mt-10">
                 Blog not found.
             </div>
+
         </div>
     </section>
 
@@ -116,30 +120,6 @@
                 return;
             }
 
-            function linkify(text) {
-                const urlRegex = /(https?:\/\/[^\s]+)/g;
-                return text.replace(urlRegex, (url) => {
-                    let label = "Visit Link";
-                    if (url.includes("wa.me")) label = "Chat on WhatsApp 💬";
-                    else if (url.includes("facebook.com")) label = "Visit our Facebook Page";
-                    else if (url.includes("instagram.com")) label = "Check on Instagram 📸";
-                    else if (url.includes("youtube.com")) label = "Watch on YouTube ▶️";
-                    else if (url.includes("netlify.app/services")) label = "Visit Services Page 🔗";
-                    else if (url.includes("netlify.app")) label = "Visit Jain Events Website 🌐";
-                    return `<a href="${url}" target="_blank"
-                        class="text-[#F8153E] hover:text-[#c40f32] font-semibold underline">${label}</a>`;
-                });
-            }
-
-            function formatText(text) {
-                text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-                text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
-                text = text.replace(/__(.*?)__/g, "<u>$1</u>");
-                text = text.replace(/\n/g, "<br>");
-                return text;
-            }
-
             async function loadRelatedBlogs(slug) {
                 try {
                     const res = await fetch(
@@ -150,9 +130,10 @@
                     const container = document.getElementById("relatedBlogs");
 
                     if (!blogs.length) {
-                        container.innerHTML = `<p class="text-gray-500 col-span-full text-center">
-                                                 No related blogs found.
-                                                </p>`;
+                        container.innerHTML = `
+                            <p class="text-gray-500 col-span-full text-center">
+                                No related blogs found.
+                            </p>`;
                         return;
                     }
 
@@ -160,11 +141,12 @@
                         <div class="bg-white border rounded-xl shadow-md hover:shadow-xl transition p-5">
                             <h3 class="text-lg font-semibold text-[#F8153E] mb-2">
                                 ${blog.title}
-                             </h3>
+                            </h3>
                             <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-                                ${(blog.content || "").slice(0, 100)}...
+                                ${(blog.content || "").replace(/<[^>]+>/g, "").slice(0, 100)}...
                             </p>
-                            <a href="/blog/${blog.slug}" class="text-[#F8153E] font-medium hover:underline">
+                            <a href="/blog/${blog.slug}"
+                                class="text-[#F8153E] font-medium hover:underline">
                                 Read More →
                             </a>
                         </div>
@@ -178,31 +160,40 @@
                 const res = await fetch(
                     `https://backend-jaine-cforrender.onrender.com/blogs/slug/${slug}`
                 );
+
                 if (!res.ok) throw new Error("Blog not found");
 
                 const blog = await res.json();
 
                 blogTitle.textContent = blog.title;
+
                 blogMeta.textContent =
                     `Category: ${blog.category || "General"} • ${blog.createdAt || ""}`;
-                blogBody.innerHTML =
-                    linkify(formatText(blog.content || ""));
+
+                // ✅ MAIN FIX — Render HTML directly
+                blogBody.innerHTML = blog.content || "";
 
                 document.title =
                     `${blog.title} | Jain Events & Caterers`;
 
                 let metaDesc =
                     document.querySelector('meta[name="description"]');
+
                 if (!metaDesc) {
                     metaDesc = document.createElement("meta");
                     metaDesc.setAttribute("name", "description");
                     document.head.appendChild(metaDesc);
                 }
+
                 metaDesc.setAttribute(
                     "content",
-                    blog.content.replace(/[#*_]/g, "").slice(0, 150) + "..."
+                    (blog.content || "")
+                        .replace(/<[^>]+>/g, "")
+                        .slice(0, 150) + "..."
                 );
+
                 loadRelatedBlogs(slug);
+
                 loader.classList.add("hidden");
                 blogContent.classList.remove("hidden");
 
@@ -211,10 +202,12 @@
                 loader.classList.add("hidden");
                 errorMessage.classList.remove("hidden");
             }
+
         });
     </script>
 
     <script src="/js/include.js"></script>
+
 </body>
 
 </html>
